@@ -3,65 +3,146 @@
 <html>
 
 <head>
-	<title> 영화.home </title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+<title> 영화.home </title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<!-- W3school -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- W3school -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<!-- Swiper -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/css/swiper.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/css/swiper.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.jquery.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.jquery.min.js"></script>
+<!-- Swiper -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/css/swiper.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.jquery.min.js"></script>
 
 
 
-	<style>
-	@font-face{
-		font-family:"Rose";
-		src:url("fonts/ajangmidabang.woff");
-	}
-		h1,h3{
-			font-family: Rose ;
+<style>
+@font-face{
+	font-family:"Rose";
+	src:url("fonts/ajangmidabang.woff");
+}
+h1,h3{
+	font-family: Rose ;
 
-		}
+}
 
-		.swiper-container {
-		  width: 100%;
-		  padding-top: 50px;
-		  padding-bottom: 50px;
-			z-index: 0;
-		}
-		.swiper-slide {
-		  background-position: center;
-		  background-size: cover;
-		  width: 370px;
-		  height: 500px;
-		}
-	</style>
+body{
+	font-family: Rose;
+}
+
+.swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+	z-index: 0;
+}
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 370px;
+  height: 500px;
+}
+
+<!-- Login Form -->
+form {
+    border: 3px solid #f1f1f1;
+	width: 60% !important;
+	margin: auto !important;
+	opacity: 1 !important;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: red;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+
+</style>
 
 </head>
 
 <body>
 
 <!-- Sidebar 사이드바 -->
-<div class="w3-sidebar w3-bar-block w3-card w3-animate-right" style="display:none;right:0;!important;z-index:1001;opacity:0.8; background:black;" id="rightMenu">
-  <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
-  <a href="#" class="w3-bar-item w3-button">Link 1</a>
-  <a href="#" class="w3-bar-item w3-button">Link 2</a>
-  <a href="#" class="w3-bar-item w3-button">Link 3</a>
-  <a href="#" class="w3-bar-item w3-button">Link 3</a>
-  <a href="#" class="w3-bar-item w3-button">Link 3</a>
-  <a href="#" class="w3-bar-item w3-button">Link 3</a>
-  <a href="#" class="w3-bar-item w3-button">Link 3</a>
-  <a href="#" class="w3-bar-item w3-button">Link 3</a>
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-right" style="display:none;right:0;z-index:1001; background: rgba(0, 0, 0, 0.6);" id="rightMenu">
+  <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">닫기 &times;</button>
+	<div class="imgcontainer" style="margin-bottom: 3em;">
+		<img src="profile/face.png" alt="문지기" class="avatar">
+	</div>
+  <form class="w3-light-grey" style="margin:auto !important; width:80% !important; border-radius:15px;">
+    
+  <div class="container">
+
+	<label><b>자네 이름이 뭔가</b></label>
+	<input type="text" placeholder="성함이 무엇입니까?" name="uname" required>
+
+	<label><b>암호를 대라</b></label>
+	<input type="password" placeholder="비밀번호가 무엇입니까?" name="psw" required>
+		
+	<button type="submit">좋아.. 들어가게 해주지..</button>
+  </div>
+
+	</form>
 </div>
 
 <!-- Header -->
@@ -89,10 +170,10 @@ function closeRightMenu() {
   <!-- Swiper -->
   <div class="swiper-container w3-theme" style="width:100%">
     <div class="swiper-wrapper">
-      <div class="swiper-slide" style="background-image:url(poster/poster1.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(poster/poster2.jpg)"></div>
-      <div class="swiper-slide" style="background-image:url(poster/poster3.png)"></div>
-      <div class="swiper-slide" style="background-image:url(poster/poster4.png)"></div>
+      <div class="swiper-slide" style="background-image:url(poster/p1.png)"></div>
+      <div class="swiper-slide" style="background-image:url(poster/p2.png)"></div>
+      <div class="swiper-slide" style="background-image:url(poster/p3.png)"></div>
+      <div class="swiper-slide" style="background-image:url(poster/p4.png)"></div>
     </div>
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
