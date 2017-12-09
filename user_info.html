@@ -1,20 +1,150 @@
 <!DOCTYPE html>
 <html>
+<head>
+
 <title>가상세계_매표소</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+<style>
+
+@font-face{
+	font-family:"Rose";
+	src:url("fonts/ajangmidabang.woff");
+}
+h1,h3{
+	font-family: Rose ;
+
+}
+
+body{
+	font-family: Rose;
+}
+
+.swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+	z-index: 0;
+}
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 370px;
+  height: 500px;
+}
+
+.burst-12 { background: red; width: 80px; height: 80px; position: relative; text-align: center; }
+
+<!-- Login Form -->
+form {
+    border: 3px solid #f1f1f1;
+	width: 60% !important;
+	margin: auto !important;
+	opacity: 1 !important;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: red;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.cancelbtn {
+    width: auto;
+	margin: auto;
+    padding: 8px 10px;
+    background-color: #f44336;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+</style>
+
+</head>
+
 
 
 <body>
+<!-- Sidebar 사이드바 -->
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-right" style="display:none;right:0;z-index:1001; background: rgba(0, 0, 0, 0.6);" id="rightMenu">
+  <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">닫기 &times;</button>
+	<div class="imgcontainer" style="margin-bottom: 3em;">
+		<img src="profile/face.png" alt="문지기" class="avatar">
+	</div>
+  <form class="w3-light-grey" style="margin:auto !important; width:80% !important; border-radius:15px;">
+	<div style="padding: 5px;">
+	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px"> 예약 정보 </a>
+	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px"> 회원 정보 </a>
+	</div>
+	
+   </form>
+
+</div>
+<script>
+function openRightMenu() {
+    var x = document.getElementById("rightMenu");
+	x.style.width = "30%";
+	x.style.display = "block";
+}
+function closeRightMenu() {
+    document.getElementById("rightMenu").style.display = "none";
+}
+</script>
 <!-- Header -->
 <header class="w3-container w3-theme w3-padding" id="myHeader">
+  <i onclick="openRightMenu()" class="fa fa-bars w3-xlarge w3-button w3-theme w3-right"></i>
   <div class="w3-center">
   <h1 class="w3-xxxlarge w3-animate-bottom">가상세계 매표소</h1>
   </div>
 </header>
+
 
 <div class="w3-container">
   <hr>
