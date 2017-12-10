@@ -145,125 +145,76 @@ function closeRightMenu() {
   </div>
 </header>
 
+
 <div class="w3-container">
   <hr>
   <div class="w3-center">
-    <h2>시간표</h2>
+    <h2>회원 정보</h2>
   </div>
-</div>
-
-<div class="w3-row-padding w3-center w3-margin-top">
-<div class="w3-third">
-  <div class="w3-card w3-container" style="min-height:460px">
-  <h3>Responsive</h3><br>
-  <i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
-  <p>Built-in responsiveness</p>
-  <p>Mobile first fluid grid</p>
-  <p>Fits any screen sizes</p>
-  <p>PC Tablet and Mobile</p>
-  </div>
-</div>
-<div class="w3-half">
+  
+<button onclick="addMovie()">add</button>
 <div class="w3-responsive w3-card-4">
-<table class="w3-table w3-striped w3-bordered">
-
-<tbody>
-<tr>
-  <td>시간 1 클릭처리요망</td>
-</tr>
-<tr class="w3-white">
-<tr>
-  <td>시간 1 클릭처리요망</td>
-</tr>
-<tr class="w3-white">
-<tr>
-  <td>시간 1 클릭처리요망</td>
-</tr>
-<tr class="w3-white">
-<tr>
-  <td>시간 1 클릭처리요망</td>
-</tr>
-<tr class="w3-white">
-<tr>
-  <td>시간 1 클릭처리요망</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="w3-row-padding w3-center w3-margin-top">
-<div class="w3-third">
-  <div class="w3-card w3-container" style="min-height:460px">
-  <h3>Responsive</h3><br>
-  <i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
-  <p>Built-in responsiveness</p>
-  <p>Mobile first fluid grid</p>
-  <p>Fits any screen sizes</p>
-  <p>PC Tablet and Mobile</p>
-  </div>
-</div>
-<div class="w3-half">
-<div class="w3-responsive w3-card-4">
-<table class="w3-table w3-striped w3-bordered">
-
-<tbody>
-<tr>
-  <td>시간 1 클릭처리요망</td>
-</tr>
-<tr class="w3-white">
-<tr>
-  <td>시간 1 클릭처리요망</td>
-</tr>
-<tr class="w3-white">
-<tr>
-  <td>시간 1 클릭처리요망</td>
-</tr>
-<tr class="w3-white">
-<tr>
-  <td>시간 1 클릭처리요망</td>
-</tr>
-<tr class="w3-white">
-<tr>
-  <td>시간 1 클릭처리요망</td>
-</tr>
-</tbody>
-</table>
+	<table class="w3-table w3-striped w3-bordered">
+		<thead>
+			<tr>
+				<th> Code </th>
+				<th> 포스터 </th>
+				<th> 이름  </th>
+				<th> 상영일 </th>
+				<th> 장르 </th>
+				<th> 상영시간 </th>
+			</tr>
+		</thead>
+		<tbody id="movieTable">
+			<tr class="w3-white">
+			  <td>code from db</td>
+			  <td>poster from db</td>
+			  <td>name from db</td>
+			  <td>date from db</td>
+			  <td>genre from db</td>
+			  <td>runtime from db</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
 </div>
 
+<script>
+function addMovie() {
+    var table = document.getElementById("movieTable");
+    var row = table.insertRow(0);
+    
+	var mcode = row.insertCell(0);
+    var mposter = row.insertCell(1);
+	var mname = row.insertCell(2);
+	var mdate = row.insertCell(3);
+	var mgenre = row.insertCell(4);
+	var mrun = row.insertCell(5);
+	
+    mcode.innerHTML = "code from db";
+    mposter.innerHTML = "poster from db";
+	mname.innerHTML = "name from db";
+	mdate.innerHTML = "date from db";
+	mgenre.innerHTML = "genre from db";
+	mrun.innerHTML = "running time from db";
+	row.className = "w3-white";
+}
+</script>
 
-<div class="w3-third">
-  <div class="w3-card w3-container" style="min-height:460px">
-  <h3>Design</h3><br>
-  <i class="fa fa-diamond w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
-  <p>Paper like design</p>
-  <p>Bold colors and shadows</p>
-  <p>Equal across platforms</p>
-  <p>Equal across devices</p>
-  </div>
-</div>
-</div>
-<div class="w3-half">
-<div class="w3-responsive w3-card-4">
-<table class="w3-table w3-striped w3-bordered">
 
-<tbody>
-<tr>
-  <td>이 &nbsp;&nbsp; 름</td>
-  <td>회원이름정보를DB에서받음</td>
-</tr>
-<tr class="w3-white">
-  <td>I &nbsp;&nbsp;&nbsp; D</td>
-  <td>회원ID정보를DB에서받음</td>
-</tr>
-<tr class="w3-white">
-  <td>Phone</td>
-  <td>폰번호정보를DB에서받음</td>
-</tr>
-</tbody>
-</table>
+
+
+
+<div class="w3-center">
+  <br>
+  <a class="w3-button w3-theme">탈퇴하기</a>
+  <!--pop up 창이 나와서 진짜 탈퇴하냐 묻고 거기서 네. 클릭하면 탈퇴시켜야하지 않을까? 발전시킨다면. -->
+  <br><br>
 </div>
+<br>
+
 </div>
+<p></p><p></p>
 
 
 <!-- Footer -->
