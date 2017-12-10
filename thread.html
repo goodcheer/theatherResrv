@@ -35,7 +35,7 @@
 
     </tbody>
 </table>
-    <button id = "submit"> 예약</button>
+    <button onclick = "submit()"> 예약하기</button>
 </body>
 
 <script>
@@ -119,6 +119,11 @@
 
     var resv_info = [];
 
+function sumbit(){
+  for (var i = 0; i< resvSeat.length();  i++){
+    localStorage.setItem (resvSeat[i])
+  }
+}
 
 
 </script>
