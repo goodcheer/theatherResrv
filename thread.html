@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .sheet {
+        .seat {
             width: 15px;
             height: 15px;
             background: yellow;
-
         }
 
         .reserved {
@@ -24,61 +23,103 @@
 
 </head>
 <body>
-
+<div id = "movieTitle">
+</div>
 <table id="thread-table">
     <thead>
     <tr>
         <th id="screen">screen</th>
     </tr>
     </thead>
-    <tbody id="thread-sheet" data-row="" data-column="">
+    <tbody id="thread-seat" data-row="" data-column="">
 
     </tbody>
 </table>
-    <button> 예약</button>
+    <button id = "submit"> 예약</button>
 </body>
 
 <script>
+//테이블 정보
     var threadInfo = {
         threadName : '꾼',
         row: 13,
         column: 12,
         reserveList: [{
             user : 'user2',
-            sheetId : 'A2'
+            seatId : 'A2'
         }]
     };
+
+    //현재 영화에 대한 정보와 회원정보를 출력
+    var movieTitle = sessionStorage.getItem("movieTitle");
+    mvt = document.createElement('h3');
+    mvt.innerHTML= movieTitle;
+
+    var userName = sessionStorage.getItem("userName");
+    usn = document.createElement('h5');
+    usn.innerHTML = userName+'님의 예약진행';
+
+    document.querySelector('#movieTitle').appendChild(mvt);
+    document.querySelector('#movieTitle').appendChild(usn);
+
+    var resvSeat = [];
+
+
     for (let i = 0; i < threadInfo.row; i++) {
         let threadRow = document.createElement('tr');
         for (let j = 0; j < threadInfo.column; j++) {
-            let sheet = document.createElement('td');
-            sheet.className = 'sheet';
+            let seat = document.createElement('td');
+            seat.className = 'seat';
             const row = String.fromCharCode(65 + i);
-            sheet.dataset.row = row;
-            sheet.dataset.column = j;
-            sheet.innerHTML = row + j;
-            const isReserved = threadInfo.reserveList.every(function (reserveData) {
-                return reserveData.sheetId === row + j;
-            });
-            if(isReserved) sheet.classList.add('reserved');
-            threadRow.appendChild(sheet);
+            if (j==0) {
+              seat.dataset.row = row;
+              seat.dataset.column = j;
+              seat.innerHTML = row;
+            }
+            else{
+              seat.dataset.row = row;
+              seat.dataset.column = j;
+              seat.innerHTML = row + j;
+              const isReserved = threadInfo.reserveList.every(function (reserveData) {
+                  return reserveData.seatId === row + j;
+              });
+              if(isReserved) seat.classList.add('reserved');
+            }
+            threadRow.appendChild(seat);
         }
-        document.querySelector('#thread-sheet').appendChild(threadRow);
+        document.querySelector('#thread-seat').appendChild(threadRow);
     }
 
-    var threadSheet = document.querySelector('#thread-sheet');
-    threadSheet.addEventListener('click', function (e) {
+    var threadSeat = document.querySelector('#thread-seat');
+    threadSeat.addEventListener('click', function (e) {
         if(e.target.classList.contains('reserved')){
-            alert('예약 되었씁니다.');
+            alert('이미 예약된 좌석입니다.');
             return;
         }
         if (e.target.classList.contains('my-reserve')) {
             e.target.classList.remove('my-reserve' );
+            for (var i = 0; i<resvSeat.length; i++){
+              if (resvSeat[i]==e.target.dataset.row+e.target.dataset.column){
+                resvSeat.splice(i,1);
+              }
+            }
+              console.log(resvSeat);
+
         } else {
             e.target.classList.add('my-reserve');
+            resvSeat.push(e.target.dataset.row+e.target.dataset.column);
+            console.log(resvSeat[0]);
         }
 
     });
+
+    var submit = document.querySelector('#summit');
+
+
+
+    var resv_info = [];
+
+
 
 </script>
 </html>
