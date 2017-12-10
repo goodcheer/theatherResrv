@@ -179,9 +179,39 @@ function closeRightMenu() {
 
   </div>
   <script>
+  <!-- ID 중복 확인 버튼 -->
   function checkDup(){
-	return true;
+	if(isDuplicated() == false){
+		alert("아이디가 이미 존재합니다.");
+	}else{
+		if(document.getElementById("ID").value != ""){
+			alert("아이디를 사용해도 좋습니다.");	
+		}
+		
+	}
   }
+  
+  <!-- ID 중복 확인 -->
+  function isDuplicated(){
+	var flag = false;
+	thisName = document.getElementById("ID").value;
+	
+	var user_info = localStorage.getItem("user_info");
+	user_info = JSON.parse(user_info);
+	
+	for(i = 0; i < user_info.length; i++){
+		<!-- console.log(thisName); -->
+		<!-- console.log(user_info[i]); -->
+		<!-- console.log("same ? ") -->
+		<!-- console.log(thisName == user_info[i]["id"]); -->
+		if(thisName == user_info[i]["id"]){
+			flag = true;
+		}
+	}
+	<!-- console.log(flag); -->
+	return flag;
+  }
+  
   </script>
 	<label>정보제공 동의</label>
   <div class="w3-section w3-sand" style="overflow:scroll; width: 100%; height:300px;">      
@@ -362,6 +392,7 @@ function closeRightMenu() {
 
 </div>
 <p></p><p></p>
+<!-- 회원가입 함수 -->
 
 <script>
 function signUp(){
@@ -376,12 +407,13 @@ function signUp(){
 	user_info = JSON.parse(user_info);
 	
 	<!-- 중복 확인 후 저장 -->
-	if(checkDup() == true){
-		console.log(user_info);
+	if(isDuplicated() == false){
 		var newdat = {"id":myid, "name":myname, "pw": password, "phone":phone};
 		user_info.push(newdat);
 		localStorage.setItem("user_info",JSON.stringify(user_info));
-		
+
+	}else{
+		alert("작성 양식에 맞춰서 작성했는지 다시 확인해주세요.")
 	}
 	
 	
