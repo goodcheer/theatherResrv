@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .sheet {
+            width: 15px;
+            height: 15px;
+            background: yellow;
+
+        }
+
+        .reserved {
+            background: red;
+
+        }
+
+        .my-reserve {
+            background: blue;
+        }
+    </style>
+    <script src="utils/localStorageHelper.js"></script>
+
+</head>
+<body>
+
+<table id="thread-table">
+    <thead>
+    <tr>
+        <th id="screen">screen</th>
+    </tr>
+    </thead>
+    <tbody id="thread-sheet" data-row="" data-column="">
+
+    </tbody>
+</table>
+    <button> 예약</button>
+</body>
+
+<script>
+    var threadInfo = {
+        threadName : '꾼',
+        row: 13,
+        column: 12,
+        reserveList: [{
+            user : 'user2',
+            sheetId : 'A2'
+        }]
+    };
+    for (let i = 0; i < threadInfo.row; i++) {
+        let threadRow = document.createElement('tr');
+        for (let j = 0; j < threadInfo.column; j++) {
+            let sheet = document.createElement('td');
+            sheet.className = 'sheet';
+            const row = String.fromCharCode(65 + i);
+            sheet.dataset.row = row;
+            sheet.dataset.column = j;
+            sheet.innerHTML = row + j;
+            const isReserved = threadInfo.reserveList.every(function (reserveData) {
+                return reserveData.sheetId === row + j;
+            });
+            if(isReserved) sheet.classList.add('reserved');
+            threadRow.appendChild(sheet);
+        }
+        document.querySelector('#thread-sheet').appendChild(threadRow);
+    }
+
+    var threadSheet = document.querySelector('#thread-sheet');
+    threadSheet.addEventListener('click', function (e) {
+        if(e.target.classList.contains('reserved')){
+            alert('예약 되었씁니다.');
+            return;
+        }
+        if (e.target.classList.contains('my-reserve')) {
+            e.target.classList.remove('my-reserve' );
+        } else {
+            e.target.classList.add('my-reserve');
+        }
+
+    });
+
+</script>
+</html>
