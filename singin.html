@@ -20,26 +20,32 @@
 <div class="w3-row-padding">
 
 <div class="w3-content">
-<form class="w3-container w3-card-4">
-  <div class="w3-section">      
+<form class="w3-container w3-card-4" name="userinput" onSubmit="return checkIt()">
+  <div class="w3-section">
+    <label>이름</label>      
     <input class="w3-input" type="text" required>
-    <label>이름</label>
   </div>
-  <div class="w3-section">      
+
+  <div class="w3-section">
+    <label>ID</label>      
     <input class="w3-input" type="text" required>
-    <label>ID</label>
+    <input type="button" name="confirm_id" value="중복확인"
+            onClick="openConfirmid(this.form)"/>
   </div>
+
   <div class="w3-section">      
-    <input class="w3-input" type="text" required>
     <label>Password</label>
+    <input class="w3-input" type="password" required>
   </div>
+
   <div class="w3-section">      
-    <input class="w3-input" type="text" required>
     <label>phone</label>
-  </div>
-  <div class="w3-section">      
     <input class="w3-input" type="text" required>
-    <label>정보제공</label>
+
+  </div>
+
+  <div class="w3-section">      
+    <label>정보제공 동의</label>
     <pre>
     안녕하세요. 
     가입 전 이 글을 읽고 정보 제공에 관해 동의를 하셔야 합니다.
@@ -50,21 +56,18 @@
 
   <div class="w3-row">
   <div class="w3-half">
-    <input id="milk" class="w3-check" type="checkbox" checked="checked">
+    <input id="agree" class="w3-check" type="checkbox" required>
     <label>정보제공 사항을 읽고 동의합니다.</label>
     
   </div>
+  <br><br><br>
+      <input type="submit" value="가입하기">
+  <br><br><br>
   </div>
 </form>
 </div>
 
 
-<div class="w3-center">
-  <br>
-  <a class="w3-button w3-theme">가입하기</a>
-  <br><br>
-</div>
-<br>
 
 </div>
 <p></p><p></p>
@@ -84,6 +87,15 @@
 
 <!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
 <script>
+
+//id중복확인
+function openConfirmid(inputid) {
+  if(inputid.id.value =="") {
+    alert("중복입니다")
+    return;
+  }
+}
+
 
 
 // Tabs
