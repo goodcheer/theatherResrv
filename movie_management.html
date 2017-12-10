@@ -1,0 +1,58 @@
+<html>
+
+
+<body>
+
+<form name="admininput" onSubmit="return checkIt()">
+영화 제목 : <input type="text" id="movie_name"> <br>
+포스터 : <input type="file" id="poster" accept="image/jpg, image/png"> <br>
+상영일 : <input type="datetime-local" id="date"> <br>
+장르 : <input type="text" id="genre"> <br>
+상영 시간 : <input type="number" id="run_time"> <br>
+<input type="submit" value="추가하기"> <br>
+</form>
+
+<meta charset = "utf8">
+
+<script>
+<!-- 테이블의 생성 -->
+var movie = [] ;
+
+<!-- localStorage에 넣기 --> 
+localStorage.setItem('movie', JSON.stringify(movie));
+
+<!-- localStorage에서 가져오기 -->
+var tem = localStorage.getItem('movie');
+var movie2 = JSON.parse(tem);
+
+signUp();
+
+
+function signUp(){
+
+	<!-- input 값 가져오기 -->
+	movie_name = document.getElementById('movie_name').value;
+	console.log(movie_name);
+	poster = document.getElementById('poster').value;
+	date = document.getElementById('date').value;
+	genre = document.getElementById('genre').value;
+	run_time = document.getElementById('run_time').value;
+	
+	<!-- localStorage에서 회원정보 가져오기 -->
+    var movie = localStorage.getItem("movie");
+    movie = JSON.parse(movie);
+	
+	<!-- 중복 확인 후 저장 -->
+        var newmovie = {"movie_name":movie_name, "poster":poster, "date":date, "genre":genre, "run_time":run_time};
+        movie.push(newmovie);
+        console.log(movie);
+        localStorage.setItem("movie",JSON.stringify(movie));	
+	}
+	
+	
+
+</script>
+
+</body>
+
+</html>
