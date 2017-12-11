@@ -35,10 +35,21 @@
 
     </tbody>
 </table>
-    <button onclick = "submit()"> 예약하기</button>
+    <button onclick = "myReserve()"> 예약하기</button>
 </body>
 
 <script>
+function myReserve(){
+  var resv_info = localStorage.getItem("resv_info");
+	resv_info = JSON.parse(resv_info);
+  for (var i = 0; i< resvSeat.length;  i++){
+    var newResv = {"id":myid, "name":userName, "seat":resvSeat[i], "movie":movieTitle};
+    resv_info.push(newResv);
+  }
+    localStorage.setItem ("resv_info",JSON.stringify(resv_info));
+}
+
+myid = "heywowawesome";
 //테이블 정보
     var threadInfo = {
         threadName : '꾼',
@@ -58,6 +69,8 @@
     var userName = sessionStorage.getItem("userName");
     usn = document.createElement('h5');
     usn.innerHTML = userName+'님의 예약진행';
+
+    var myid = sessionStorage.getItem("id");
 
     document.querySelector('#movieTitle').appendChild(mvt);
     document.querySelector('#movieTitle').appendChild(usn);
@@ -116,14 +129,6 @@
     var submit = document.querySelector('#summit');
 
 
-
-    var resv_info = [];
-
-function sumbit(){
-  for (var i = 0; i< resvSeat.length();  i++){
-    localStorage.setItem (resvSeat[i])
-  }
-}
 
 
 </script>
