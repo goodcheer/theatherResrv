@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
 <style>
 
 @font-face{
@@ -106,7 +108,27 @@ span.psw {
     }
 }
 </style>
+<script>
 
+	
+<!-- 영화 삭제 -->
+
+function delClient(targetID){
+	var users = localStorage.getItem("user_info");
+	users = JSON.parse(users);
+	
+	for(i=0; i<users.length; i++){
+		if(users[i].id === targetID){
+			users.splice(i,1);
+			alert("삭제 완료되었습니다.")
+			}
+	}
+	localStorage.setItem('user_info',JSON.stringify(users));
+		
+}
+	
+
+</script>
 </head>
 
 
@@ -120,8 +142,9 @@ span.psw {
 	</div>
   <form class="w3-light-grey" style="margin:auto !important; width:80% !important; border-radius:15px;">
 	<div style="padding: 5px;">
-	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px"> 예약 정보 </a>
-	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px"> 회원 정보 </a>
+	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px" href="movie_manager.html"> 상영 관리 </a>
+	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px" href="client_manager.html"> 회원 관리 </a>
+	<a class="w3-button" style="width:100%; padding: 30px 30px; border-radius:15px" href="main_admin.html"> 메인 화면으로 </a>
 	</div>
 	
    </form>
@@ -149,44 +172,74 @@ function closeRightMenu() {
 <div class="w3-container">
   <hr>
   <div class="w3-center">
-    <h2>회원 정보</h2>
+    <span style="font-size:2em;"> 회원 관리</span>
   </div>
-<div class="w3-responsive w3-card-4">
-<table class="w3-table w3-striped w3-bordered">
+<div class="w3-center">
+  <br>
+  <!-- Trigger/Open the Modal -->
+  <a onclick="document.getElementById('id02').style.display='block'"class="w3-button w3-theme">회원 삭제</a>
+  <br><br>
+</div>
 
-<tbody>
-<tr>
-  <td>이 &nbsp;&nbsp; 름</td>
-  <td>회원이름정보를DB에서받음</td>
-</tr>
-<tr class="w3-white">
-  <td>I &nbsp;&nbsp;&nbsp; D</td>
-  <td>회원ID정보를DB에서받음</td>
-</tr>
-<tr class="w3-white">
-  <td>Phone</td>
-  <td>폰번호정보를DB에서받음</td>
-</tr>
-</tbody>
+<!-- 영화 Table -->
+<div class="w3-responsive w3-card-4">
+<table class="w3-table w3-striped w3-bordered" style="text-align:center;" id="inventory">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>이름</th>
+      <th>비밀번호</th>
+      <th>전화번호 </th>
+      <th>예약횟수</th>
+    </tr>
+  </thead>
+  <tbody id="screen">
+  </tbody>
 </table>
 </div>
 </div>
 
+<script>
+	<!-- 영화 목록생성 -->
+	$( document ).ready(function(){
+	  var users = localStorage.getItem("user_info");
+	  users = JSON.parse(users);
+	  
 
-
-
-
-<div class="w3-center">
-  <br>
-  <a class="w3-button w3-theme">탈퇴하기</a>
-  <!--pop up 창이 나와서 진짜 탈퇴하냐 묻고 거기서 네. 클릭하면 탈퇴시켜야하지 않을까? 발전시킨다면. -->
-  <br><br>
-</div>
+	  var str = "";
+	  for(i=0; i < users.length; i++){
+	  	str = str + '<tr class = "w3-white"><td>'+users[i].id+'</td>\
+  <td>'+users[i].name+'</td>\
+  <td>'+users[i].pw+'</td>\
+  <td>'+users[i].phone+'</td>\
+  <td>'+users[i].resvNum+'</td>\
+</tr>';
+	  }
+      $('#screen').html(str);
+      
+    });
+	
+</script>
 <br>
 
-</div>
 <p></p><p></p>
 
+
+<!-- The Modal for 회원 삭제 -->
+<div id="id02" class="w3-modal">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+      <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+		<div class="w3-section">
+			<label>회원ID</label>      
+			<input class="w3-input" id="del_client_id" type="text" required>
+			<br><br><br>
+			<input type="submit" value="삭제하기" onclick="delClient(document.getElementById('del_client_id').value)">
+			<br><br><br>
+		</div>
+    </div>
+  </div>
+</div>
 
 <!-- Footer -->
 <footer class="w3-container w3-theme-dark w3-padding-16">
@@ -197,7 +250,6 @@ function closeRightMenu() {
 	</a>
   </div>
 </footer>
-
 <!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
 <script>
 

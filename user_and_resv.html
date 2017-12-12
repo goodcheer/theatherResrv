@@ -120,9 +120,8 @@ span.psw {
 	</div>
   <form class="w3-light-grey" style="margin:auto !important; width:80% !important; border-radius:15px;">
 	<div style="padding: 5px;">
-	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px" href="reservation_info.html"> 예약 정보 </a>
-	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px" href="user_info.html"> 회원 정보 </a>
-	<a class="w3-button" style="width:100%; padding: 30px 30px; border-radius:15px" href="main_client.html"> 메인 화면으로 </a>
+	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px"> 예약 정보 </a>
+	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px"> 회원 정보 </a>
 	</div>
 	
    </form>
@@ -137,6 +136,42 @@ function openRightMenu() {
 function closeRightMenu() {
     document.getElementById("rightMenu").style.display = "none";
 }
+
+
+/* 회원정보 삭제 */
+function deleteUserself(){
+	var uID = sessionStorage.getItem("ID");
+	var user_info = localStorage.getItem("user_info");
+	user_info = JSON.parse(user_info);
+	i = 0;
+	while(i<user_info.length){
+		if (uID == user_info[i]["id"]){
+			delete user_info[i]
+			}
+		i = i+1;
+	}
+	var new_uinfo = JSON.stringify(user_info);
+	localStorage.setItem('user_info',new_uinfo);}
+
+
+/* 예약내역 삭제 */
+function deleteReservation(){
+	var thisID = sessionStorage.getItem("ID");
+	console.log(thisID);
+	var resv_info = localStorage.getItem("resv_info");
+	resv_info = JSON.parse(resv_info);
+	console.log(resv_info)
+	i = 0;
+	while(i<resv_info.length){
+		if (thisID == resv_info[i]["id"]){
+			delete resv_info[i]
+			}
+		i = i+1;
+	}
+	var new_info = JSON.stringify(resv_info);
+	console.log(new_info)
+	localStorage.setItem('resv_info',new_info);}
+
 </script>
 <!-- Header -->
 <header class="w3-container w3-theme w3-padding" id="myHeader">
@@ -146,6 +181,53 @@ function closeRightMenu() {
   </div>
 </header>
 
+
+<div class="w3-container">
+  <hr>
+  <div class="w3-center">
+    <h2>회원 정보</h2>
+  </div>
+<div class="w3-responsive w3-card-4">
+<table class="w3-table w3-striped w3-bordered">
+
+
+<tr>
+<th>이 름</th>
+<th>I D</th>
+<th>Phone</th>
+</tr>
+<tbody id="uinfo">
+</tbody>
+</table>
+</div>
+</div>
+
+<script>
+<!-- 회원정보 확인하고 내용을 출력하겠다 -->
+function printUserInfo(){
+	var user_info = localStorage.getItem("user_info");
+	user_info = JSON.parse(user_info);
+	var uID = sessionStorage.getItem("ID");
+
+	for (i=0; user_info.length; i++){
+		if (uID == user_info[i]["id"]){
+			var ustr = '<tr><td>'+user_info[i]["name"]+'</td>'
+			+'<td>'+user_info[i]["id"]+'</td>'
+			+'<td>'+user_info[i]["phone"]+'</td>';
+			document.getElementById("uinfo").innerHTML = ustr;
+		}
+	}
+}
+printUserInfo();
+</script>
+
+
+<div class="w3-center">
+  <br>
+  <a class="w3-button w3-theme" onclick=deleteUserself()>탈퇴하기</a>
+  <br><br>
+</div>
+
 <div class="w3-container">
   <hr>
   <div class="w3-center">
@@ -154,34 +236,55 @@ function closeRightMenu() {
 <div class="w3-responsive w3-card-4">
 <table class="w3-table w3-striped w3-bordered">
 
-<tbody>
-<tr>
-  <td>영화 이름</td>
-  <td>영화이름정보를DB에서받음</td>
-</tr>
-<tr class="w3-white">
-  <td>영화 일시</td>
-  <td>영화일시정보를DB에서받음</td>
 
+<tr>
+<th>영화명</th>
+<th>상영 일시</th>
+<th>상영 시간(분)</th>
 </tr>
-<tr class="w3-white">
-  <td>좌석 정보</td>
-  <td>좌석정보를DB에서받음</td>
-</tr>
+<tbody id="minfo">
 </tbody>
 </table>
 </div>
 </div>
 
+<script>
+<!-- 예약 내용 확인하고 내용을 출력하겠다 -->
+function printReservation(){
+		var flag = false;
+		var resv_info = localStorage.getItem("resv_info");
+		resv_info = JSON.parse(resv_info);
+		var thisID = sessionStorage.getItem("ID");
 
-
-
+		for (i=0; i < resv_info.length; i++){
+			if (thisID == resv_info[i]["id"]){
+				var flag = true;
+				var str = '<tr><td>'+resv_info[i]["movie_name"]+'</td>'
+				+'<td>'+resv_info[i]["date"]+'</td>'
+				+'<td>'+resv_info[i]["run_time"]+'</td>';
+				document.getElementById("minfo").innerHTML = str;
+	  }
+			}
+		console.log(flag)
+		if (flag == false){
+			var str = '<tr><td>null</td>'
+				+'<td>null</td>'
+				+'<td>null</td>';
+			document.getElementById("minfo").innerHTML = str;
+		}
+	}
+printReservation();
+</script>
 
 <div class="w3-center">
   <br>
-  <a class="w3-button w3-theme">예약취소</a>
+  <a class="w3-button w3-theme" onclick=deleteReservation()>예약취소</a>
   <br><br>
 </div>
+
+
+
+
 <br>
 
 </div>
@@ -197,6 +300,7 @@ function closeRightMenu() {
 	</a>
   </div>
 </footer>
+
 <!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
 <script>
 

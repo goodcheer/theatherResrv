@@ -108,7 +108,56 @@ span.psw {
     }
 }
 </style>
+<script>
+<!-- 영화 추가 -->
+function addMovie(){
+	
+	<!-- input 값 가져오기 -->
+	movie_name = document.getElementById('movie_name').value;
+	console.log(movie_name);
+	poster = document.getElementById('poster').files[0].name;
+	date = document.getElementById('date').value;
+	genre = document.getElementById('genre').value;
+	var run_time = document.getElementById('run_time').value;
+	var run_time = run_time.toString();
+	
+	<!-- localStorage에서 영화목록 가져오기 -->
+    var movie = localStorage.getItem("movie");
+	console.log(movie);
+	if( movie === null ){
+		var movie = "[]";
+		localStorage.setItem('movie', movie);
+	};
+	console.log(movie);
+    movie = JSON.parse(movie);
+	console.log(movie);
+	
+	<!-- 영화 추가 -->
+	var newmovie = {"movie_name":movie_name, "poster":poster, "date":date, "genre":genre, "run_time":run_time};
+	movie.push(newmovie);
+	console.log(movie);
+	localStorage.setItem("movie",JSON.stringify(movie));
+	
+	}
+	
+<!-- 영화 삭제 -->
 
+function delMovie(title){
+	var movie = localStorage.getItem("movie");
+	var movie = JSON.parse(movie);
+	
+	for(i=0; i<movie.length; i++){
+		if(movie[i].movie_name === title){
+			movie.splice(i,1);
+			alert("삭제 완료되었습니다.")
+			}
+	}
+	localStorage.setItem('movie',JSON.stringify(movie));
+		
+}
+	
+
+</script>
 </head>
 
 
@@ -123,8 +172,8 @@ span.psw {
   <form class="w3-light-grey" style="margin:auto !important; width:80% !important; border-radius:15px;">
 	<div style="padding: 5px;">
 	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px" href="movie_manager.html"> 상영 관리 </a>
-	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px" href=""> 회원 관리 </a>
-	<a class="w3-button" style="width:100%; padding: 30px 30px; border-radius:15px" href="main_client.html"> 메인 화면으로 </a>
+	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px" href="client_manager.html"> 회원 관리 </a>
+	<a class="w3-button" style="width:100%; padding: 30px 30px; border-radius:15px" href="main_admin.html"> 메인 화면으로 </a>
 	</div>
 	
    </form>
@@ -156,14 +205,13 @@ function closeRightMenu() {
   </div>
 <div class="w3-center">
   <br>
-  <a class="w3-button w3-theme" onclick="">영화 추가</a>
-  <a class="w3-button w3-theme" onclick="">영화 삭제</a>
-  <!--pop up 창이 나와서 진짜 탈퇴하냐 묻고 거기서 네. 클릭하면 탈퇴시켜야하지 않을까? 발전시킨다면. -->
+  <!-- Trigger/Open the Modal -->
+  <a onclick="document.getElementById('id01').style.display='block'"class="w3-button w3-theme">영화 추가</a>
+  <a onclick="document.getElementById('id02').style.display='block'"class="w3-button w3-theme">영화 삭제</a>
   <br><br>
 </div>
+
 <!-- 영화 Table -->
-
-
 <div class="w3-responsive w3-card-4">
 <table class="w3-table w3-striped w3-bordered" style="text-align:center;" id="inventory">
   <thead>
@@ -182,7 +230,8 @@ function closeRightMenu() {
 </div>
 
 <script>
-$( document ).ready(function(){
+	<!-- 영화 목록생성 -->
+	$( document ).ready(function(){
 	  var movie = localStorage.getItem("movie");
 	  movie = JSON.parse(movie);
 	  
@@ -199,28 +248,68 @@ $( document ).ready(function(){
       $('#screen').html(str);
       
     });
-    function addRow(){
-      var str = '<tr class = "w3-white"><td><img src="'+i.poster+'"></td>\
-  <td>'+i.movie_name+'</td>\
-  <td>'+i.date+'</td>\
-  <td>'+i.genre+'</td>\
-  <td>'+i.run_time+'</td>\
-</tr>';
-      $('#screen').append(str);
-
-      var newdat = $("#screen").html();
-      
-      localStorage.setItem("data", $('#screen').html());
-    }
+	
 </script>
-
-
-
 <br>
 
-</div>
 <p></p><p></p>
 
+
+<!-- The Modal for 영화 추가 -->
+<div id="id01" class="w3-modal">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+      <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+		<form class="w3-container "name="admininput" onSubmit="return checkIt()">
+
+		<div class="w3-section">
+			<label>영화 제목</label>      
+			<input class="w3-input" id="movie_name" type="text" required>
+		  </div>
+
+		  <div class="w3-section">
+			<label>포스터</label>      
+			<input class="w3-input" id ="poster" type="file" accept="image/jpg, image/png" required>
+		  </div>
+
+		  <div class="w3-section">      
+			<label>상영일</label>
+			<input id="date" type="datetime-local" required>
+		  </div>
+
+		  <div class="w3-section">      
+			<label>장르</label>
+			<input class="w3-input" id="genre" type="text" required>
+		  </div>
+		  
+		  <div class="w3-section">      
+			<label>상영 시간</label>
+			<input class="w3-input" id="run_time" type="number" required>
+		  </div>
+		  <br><br><br>
+			  <input type="submit" value="추가하기" onclick="addMovie()">
+		  <br><br><br>
+		  
+		</form>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal for 영화 삭제 -->
+<div id="id02" class="w3-modal">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+      <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+		<div class="w3-section">
+			<label>영화 제목</label>      
+			<input class="w3-input" id="del_movie_name" type="text" required>
+			<br><br><br>
+			<input type="submit" value="삭제하기" onclick="delMovie(document.getElementById('del_movie_name').value)">
+			<br><br><br>
+		</div>
+    </div>
+  </div>
+</div>
 
 <!-- Footer -->
 <footer class="w3-container w3-theme-dark w3-padding-16">
