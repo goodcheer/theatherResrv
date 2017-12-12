@@ -80,6 +80,7 @@ function myReserve(){
   user_info = JSON.parse(user_info);
   console.log(user_info);
   for (var i = 0; i < user_info.length; i++){
+    //세션을 통해 입력된 ID와 DB에 저장된 ID가 같은 경우 예약횟수를 증가시킨다.
     if (user_info[i].id == id){
           user_info[i].resvNum = parseInt(user_info[i].resvNum)+resvSeat.length;
           console.log(user_info[i].resvNum);
@@ -87,8 +88,6 @@ function myReserve(){
   }
   console.log(user_info);
   localStorage.setItem ("user_info",JSON.stringify(user_info));
-
-
 }
 
 
@@ -148,7 +147,7 @@ function myReserve(){
     }
 
     //예매 시도 관리
-    var threadSeat = document.querySelector('#thread-seat');
+    var threadSeat = document.querySelector('#seat');
     threadSeat.addEventListener('click', function (e) {
         if(e.target.classList.contains('reserved')){
             alert('이미 예약된 좌석입니다.');
