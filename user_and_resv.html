@@ -143,7 +143,7 @@ function closeRightMenu() {
 
 /* 회원정보 삭제 */
 function deleteUserself(){
-	var uID = sessionStorage.getItem("ID");
+	var uID = sessionStorage.getItem("id");
 	var user_info = localStorage.getItem("user_info");
 	user_info = JSON.parse(user_info);
 	i = 0;
@@ -159,9 +159,10 @@ function deleteUserself(){
 
 /* 예약내역 삭제 */
 function deleteReservation(){
-	var thisID = sessionStorage.getItem("ID");
+	var thisID = sessionStorage.getItem("id");
 	console.log(thisID);
 	var resv_info = localStorage.getItem("resv_info");
+	if (resv_info == null){return}
 	resv_info = JSON.parse(resv_info);
 	console.log(resv_info)
 	i = 0;
@@ -210,16 +211,20 @@ function deleteReservation(){
 function printUserInfo(){
 	var user_info = localStorage.getItem("user_info");
 	user_info = JSON.parse(user_info);
-	var uID = sessionStorage.getItem("ID");
+	var uID = sessionStorage.getItem("id");
 
-	for (i=0; user_info.length; i++){
+	var i = 0;
+	while (i<user_info.length){
 		if (uID == user_info[i]["id"]){
 			var ustr = '<tr><td>'+user_info[i]["name"]+'</td>'
 			+'<td>'+user_info[i]["id"]+'</td>'
 			+'<td>'+user_info[i]["phone"]+'</td>';
 			document.getElementById("uinfo").innerHTML = ustr;
 		}
+		i = i + 1;
 	}
+
+
 }
 printUserInfo();
 </script>
@@ -256,8 +261,13 @@ printUserInfo();
 function printReservation(){
 		var flag = false;
 		var resv_info = localStorage.getItem("resv_info");
+		if (resv_info == null){	/*resv_info가 null이면 그냥 null 채워주기*/		
+				var str = '<tr><td>null</td>'
+				+'<td>null</td>'
+				+'<td>null</td>';
+			document.getElementById("minfo").innerHTML = str;}
 		resv_info = JSON.parse(resv_info);
-		var thisID = sessionStorage.getItem("ID");
+		var thisID = sessionStorage.getItem("id");
 
 		for (i=0; i < resv_info.length; i++){
 			if (thisID == resv_info[i]["id"]){
