@@ -120,8 +120,9 @@ span.psw {
 	</div>
   <form class="w3-light-grey" style="margin:auto !important; width:80% !important; border-radius:15px;">
 	<div style="padding: 5px;">
-	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px"> 예약 정보 </a>
-	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px"> 회원 정보 </a>
+	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px" href="reservation_info.html"> 예약 정보 </a>
+	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px" href="user_info.html"> 회원 정보 </a>
+	<a class="w3-button" style="width:100%; padding: 30px 30px; border-radius:15px" href="main_client.html"> 메인 화면으로 </a>
 	</div>
 	
    </form>
@@ -181,7 +182,7 @@ function closeRightMenu() {
   <script>
   <!-- ID 중복 확인 버튼 -->
   function checkDup(){
-	if(isDuplicated() == false){
+	if(isDuplicated() == true){
 		alert("아이디가 이미 존재합니다.");
 	}else{
 		if(document.getElementById("ID").value != ""){
@@ -197,18 +198,19 @@ function closeRightMenu() {
 	thisName = document.getElementById("ID").value;
 	
 	var user_info = localStorage.getItem("user_info");
-	user_info = JSON.parse(user_info);
+	if(user_info === null ){
+		user_info = [];
+	}else{
+		user_info = JSON.parse(user_info);
+	}
 	
 	for(i = 0; i < user_info.length; i++){
-		<!-- console.log(thisName); -->
-		<!-- console.log(user_info[i]); -->
-		<!-- console.log("same ? ") -->
-		<!-- console.log(thisName == user_info[i]["id"]); -->
+
 		if(thisName == user_info[i]["id"]){
 			flag = true;
 		}
 	}
-	<!-- console.log(flag); -->
+	console.log(flag);
 	return flag;
   }
   
@@ -404,7 +406,11 @@ function signUp(){
 	
 	<!-- localStorage에서 회원정보 가져오기 -->
 	var user_info = localStorage.getItem("user_info");
-	user_info = JSON.parse(user_info);
+	if(user_info === null ){
+		user_info = [];
+	}else{
+		user_info = JSON.parse(user_info);
+	}
 	
 	<!-- 중복 확인 후 저장 -->
 	if(isDuplicated() == false){

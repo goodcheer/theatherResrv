@@ -185,15 +185,21 @@
     function requestSignIn(){
         const id = document.querySelector('#id-input').value;
         const pass = document.querySelector('#password-input').value;
-        const  users = getItem('users');
+        var users = localStorage.getItem('user_info');
+		if(users === null){
+			alert("일치하는 회원정보가 없습니다.")
+		}
+		var users = JSON.parse(users);
+		
 
         const user = users.find(function (user) {
-            return user.name === id && user.password === pass;
+            return user.id === id && user.pw === pass;
         });
         if(user === undefined){
-            alert('틀렸습니다.')
+            alert('일치하는 회원정보가 없습니다.')
         }else{
-            location.href = 'loginUserPage.html';
+            location.href = 'main_client.html';
+			sessionStorage.setItem('id',id);
         }
 
     }
