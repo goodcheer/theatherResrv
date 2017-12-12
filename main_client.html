@@ -28,7 +28,7 @@
 	font-family:"Rose";
 	src:url("fonts/ajangmidabang.woff");
 }
-h1,h3{
+h1,h2,h3,h4,h5,h6{
 	font-family: Rose ;
 
 }
@@ -147,7 +147,6 @@ span.psw {
 <header class="w3-container w3-theme w3-padding" id="myHeader">
   <i onclick="openRightMenu()" class="fa fa-bars w3-xlarge w3-button w3-theme w3-right"></i>
   <div class="w3-center">
-  <h3>콤퓨타</h3>
   <h1 class="w3-xxxlarge w3-animate-bottom">가상세계 매표소</h1>
   </div>
 </header>
@@ -161,17 +160,25 @@ function openRightMenu() {
 function closeRightMenu() {
     document.getElementById("rightMenu").style.display = "none";
 }
+
+function movieLink(movieTitle) {
+	console.log(movieTitle)
+	sessionStorage.setItem('movieTitle',movieTitle);
+}
+
+
 </script>
 
 <!-- Touch Slider -->
 
   <!-- Swiper -->
   <div class="swiper-container w3-theme" style="width:100%">
+  	<h6 align=center>절찬리에 상영중</h6>
     <div class="swiper-wrapper">
-      <div class="swiper-slide" style="background-image:url(poster/p1.png)"></div>
-      <div class="swiper-slide" style="background-image:url(poster/p2.png)"></div>
-      <div class="swiper-slide" style="background-image:url(poster/p3.png)"></div>
-      <div class="swiper-slide" style="background-image:url(poster/p4.png)"></div>
+      <div class="swiper-slide" ><a onclick="movieLink('007:두 번 산다')" href="thread.html"><img src="poster/p1.png" width="100%" ></a></div>
+      <div class="swiper-slide" ><a onclick="movieLink('과부의 눈물')" href="thread.html"><img src="poster/p2.png" width="100%" ></a></div>
+      <div class="swiper-slide" ><a onclick="movieLink('논개')" href="thread.html"><img src="poster/p3.png" width="100%" ></a></div>
+      <div class="swiper-slide" ><a onclick="movieLink('로마의 휴일')" href="thread.html"><img src="poster/p4.png" width="100%" ></a></div>
     </div>
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
