@@ -35,24 +35,46 @@
 
     </tbody>
 </table>
+    <div >
+      <h5>선택 좌석 정보: </h5>
+      <h5 id = "trySeat"></h5>
+    </div>
     <button onclick = "myReserve()"> 예약하기</button>
 </body>
 
 <script>
+//예약하기 버튼 누를 때 수행
 function myReserve(){
   var resv_info = localStorage.getItem("resv_info");
 	resv_info = JSON.parse(resv_info);
   for (var i = 0; i< resvSeat.length;  i++){
     var newResv = {"id":myid, "name":userName, "seat":resvSeat[i], "movie":movieTitle};
-    resv_info.push(newResv);
+    }
+
+  localStorage.setItem ("resv_info",JSON.stringify(resv_info));
+//예약횟수 증가
+  var id = sessionStorage.getItem("id");
+  console.log(id);
+  var user_info = localStorage.getItem("user_info");
+  user_info = JSON.parse(user_info);
+  console.log(user_info);
+  for (var i = 0; i < user_info.length; i++){
+    if (user_info[i].id == id){
+          user_info[i].resvNum = parseInt(user_info[i].resvNum)+resvSeat.length;
+          console.log(user_info[i].resvNum);
+    }
   }
-    localStorage.setItem ("resv_info",JSON.stringify(resv_info));
+  console.log(user_info);
+  localStorage.setItem ("user_info",JSON.stringify(user_info));
+
+
 }
 
-myid = "heywowawesome";
+
+
 //테이블 정보
     var threadInfo = {
-        threadName : '꾼',
+        threadName : '좌석',
         row: 13,
         column: 12,
         reserveList: [{
@@ -77,7 +99,7 @@ myid = "heywowawesome";
 
     var resvSeat = [];
 
-
+// 좌석 생성
     for (let i = 0; i < threadInfo.row; i++) {
         let threadRow = document.createElement('tr');
         for (let j = 0; j < threadInfo.column; j++) {
@@ -103,6 +125,7 @@ myid = "heywowawesome";
         document.querySelector('#thread-seat').appendChild(threadRow);
     }
 
+    //예매 시도 관리
     var threadSeat = document.querySelector('#thread-seat');
     threadSeat.addEventListener('click', function (e) {
         if(e.target.classList.contains('reserved')){
@@ -123,6 +146,20 @@ myid = "heywowawesome";
             resvSeat.push(e.target.dataset.row+e.target.dataset.column);
             console.log(resvSeat[0]);
         }
+    var trySeat = document.querySelector('#trySeat');
+    trySeat.innerHTML = " ";
+      for (var i = 0; i<resvSeat.length; i++){
+        if (i==0){
+          console.log(resvSeat[i])
+          trySeat.innerHTML += String (resvSeat[i]);
+        }
+        else{
+          console.log(resvSeat[i])
+          trySeat.innerHTML += String (", "+resvSeat[i]);
+        }
+
+      }
+
 
     });
 
