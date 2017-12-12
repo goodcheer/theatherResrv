@@ -2,12 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
+
+    <!-- W3school -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+
     <style>
+
+
         .seat {
-            width: 15px;
-            height: 15px;
-            background: yellow;
+
+            background: black;
+            color : white;
+            padding : 10px;
+        }
+
+        .rowName{
+
+          border: solid;
+          background: white;
+          padding:10px;
         }
 
         .reserved {
@@ -17,7 +36,9 @@
 
         .my-reserve {
             background: blue;
+
         }
+
     </style>
     <script src="utils/localStorageHelper.js"></script>
 
@@ -104,14 +125,15 @@ function myReserve(){
         let threadRow = document.createElement('tr');
         for (let j = 0; j < threadInfo.column; j++) {
             let seat = document.createElement('td');
-            seat.className = 'seat';
             const row = String.fromCharCode(65 + i);
             if (j==0) {
+              seat.className = 'rowName';
               seat.dataset.row = row;
               seat.dataset.column = j;
               seat.innerHTML = row;
             }
             else{
+              seat.className = 'seat';
               seat.dataset.row = row;
               seat.dataset.column = j;
               seat.innerHTML = row + j;
@@ -146,6 +168,8 @@ function myReserve(){
             resvSeat.push(e.target.dataset.row+e.target.dataset.column);
             console.log(resvSeat[0]);
         }
+
+        //클릭해놓은 좌석 번호 아래 표시
     var trySeat = document.querySelector('#trySeat');
     trySeat.innerHTML = " ";
       for (var i = 0; i<resvSeat.length; i++){
