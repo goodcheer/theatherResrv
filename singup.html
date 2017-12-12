@@ -384,7 +384,7 @@ function closeRightMenu() {
     
   </div>
   <br><br><br>
-      <input type="submit" value="가입하기" onclick="signUp()">
+      <input type="button" value="가입하기" onclick="signUp()">
   <br><br><br>
   </div>
 </form>
@@ -417,6 +417,8 @@ function signUp(){
 		var newdat = {"id":myid, "name":myname, "pw": password, "phone":phone};
 		user_info.push(newdat);
 		localStorage.setItem("user_info",JSON.stringify(user_info));
+		location.href = "main_client.html";
+		sessionStorage.setItem('id',myid);
 
 	}else{
 		alert("작성 양식에 맞춰서 작성했는지 다시 확인해주세요.")
