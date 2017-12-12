@@ -191,7 +191,6 @@
 		}
 		var users = JSON.parse(users);
 		
-
         const user = users.find(function (user) {
             return user.id === id && user.pw === pass;
         });
@@ -200,6 +199,15 @@
         }else{
             location.href = 'main_client.html';
 			sessionStorage.setItem('id',id);
+
+			for(i=0; i<users.length; i++){
+			if(users[i].id === id){
+				sessionStorage.setItem("name",users[i].name);
+				sessionStorage.setItem("phone",users[i].phone);
+				sessionStorage.setItem("resvNum",users[i].resvNum);
+			}
+		}
+			
         }
 
     }
