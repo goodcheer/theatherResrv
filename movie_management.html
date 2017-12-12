@@ -113,7 +113,7 @@ function addMovie(){
 	<!-- input 값 가져오기 -->
 	movie_name = document.getElementById('movie_name').value;
 	console.log(movie_name);
-	poster = document.getElementById('poster').value;
+	poster = document.getElementById('poster').files[0].name;
 	date = document.getElementById('date').value;
 	genre = document.getElementById('genre').value;
 	var run_time = document.getElementById('run_time').value;
@@ -121,11 +121,14 @@ function addMovie(){
 	
 	<!-- localStorage에서 영화목록 가져오기 -->
     var movie = localStorage.getItem("movie");
+	console.log(movie);
 	if( movie === null ){
-		var movie = [];
-		localStorage.setItem('movie', JSON.stringify(movie));
-	}
+		var movie = "[]";
+		localStorage.setItem('movie', movie);
+	};
+	console.log(movie);
     movie = JSON.parse(movie);
+	console.log(movie);
 	
 	<!-- 영화 추가 -->
 	var newmovie = {"movie_name":movie_name, "poster":poster, "date":date, "genre":genre, "run_time":run_time};

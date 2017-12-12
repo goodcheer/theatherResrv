@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
 <style>
 
 @font-face{
@@ -150,68 +152,70 @@ function closeRightMenu() {
 <div class="w3-container">
   <hr>
   <div class="w3-center">
-    <h2>회원 정보</h2>
+    <span style="font-size:2em;"> 상영 관리</span>
   </div>
-  
-<button onclick="addMovie()">add</button>
+<div class="w3-center">
+  <br>
+  <a class="w3-button w3-theme" onclick="">영화 추가</a>
+  <a class="w3-button w3-theme" onclick="">영화 삭제</a>
+  <!--pop up 창이 나와서 진짜 탈퇴하냐 묻고 거기서 네. 클릭하면 탈퇴시켜야하지 않을까? 발전시킨다면. -->
+  <br><br>
+</div>
+<!-- 영화 Table -->
+
+
 <div class="w3-responsive w3-card-4">
-	<table class="w3-table w3-striped w3-bordered">
-		<thead>
-			<tr>
-				<th> Code </th>
-				<th> 포스터 </th>
-				<th> 이름  </th>
-				<th> 상영일 </th>
-				<th> 장르 </th>
-				<th> 상영시간 </th>
-			</tr>
-		</thead>
-		<tbody id="movieTable">
-			<tr class="w3-white">
-			  <td>code from db</td>
-			  <td>poster from db</td>
-			  <td>name from db</td>
-			  <td>date from db</td>
-			  <td>genre from db</td>
-			  <td>runtime from db</td>
-			</tr>
-		</tbody>
-	</table>
+<table class="w3-table w3-striped w3-bordered" style="text-align:center;" id="inventory">
+  <thead>
+    <tr>
+      <th>포스터</th>
+      <th>제목</th>
+      <th>상영일</th>
+      <th>장르 </th>
+      <th>상영시간</th>
+    </tr>
+  </thead>
+  <tbody id="screen">
+  </tbody>
+</table>
 </div>
 </div>
 
 <script>
-function addMovie() {
-    var table = document.getElementById("movieTable");
-    var row = table.insertRow(0);
-    
-	var mcode = row.insertCell(0);
-    var mposter = row.insertCell(1);
-	var mname = row.insertCell(2);
-	var mdate = row.insertCell(3);
-	var mgenre = row.insertCell(4);
-	var mrun = row.insertCell(5);
-	
-    mcode.innerHTML = "code from db";
-    mposter.innerHTML = "poster from db";
-	mname.innerHTML = "name from db";
-	mdate.innerHTML = "date from db";
-	mgenre.innerHTML = "genre from db";
-	mrun.innerHTML = "running time from db";
-	row.className = "w3-white";
-}
+$( document ).ready(function(){
+	  var movie = localStorage.getItem("movie");
+	  movie = JSON.parse(movie);
+	  
+
+	  var str = "";
+	  for(i=0; i < movie.length; i++){
+	  	str = str + '<tr class = "w3-white"><td><img style="width:240px;height:280px;" src="poster/'+movie[i].poster+'"></td>\
+  <td>'+movie[i].movie_name+'</td>\
+  <td>'+movie[i].date+'</td>\
+  <td>'+movie[i].genre+'</td>\
+  <td>'+movie[i].run_time+'</td>\
+</tr>';
+	  }
+      $('#screen').html(str);
+      
+    });
+    function addRow(){
+      var str = '<tr class = "w3-white"><td><img src="'+i.poster+'"></td>\
+  <td>'+i.movie_name+'</td>\
+  <td>'+i.date+'</td>\
+  <td>'+i.genre+'</td>\
+  <td>'+i.run_time+'</td>\
+</tr>';
+      $('#screen').append(str);
+
+      var newdat = $("#screen").html();
+      
+      localStorage.setItem("data", $('#screen').html());
+    }
 </script>
 
 
 
-
-
-<div class="w3-center">
-  <br>
-  <a class="w3-button w3-theme">탈퇴하기</a>
-  <!--pop up 창이 나와서 진짜 탈퇴하냐 묻고 거기서 네. 클릭하면 탈퇴시켜야하지 않을까? 발전시킨다면. -->
-  <br><br>
-</div>
 <br>
 
 </div>
@@ -220,16 +224,13 @@ function addMovie() {
 
 <!-- Footer -->
 <footer class="w3-container w3-theme-dark w3-padding-16">
-  <h3>Footer</h3>
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-  <div style="position:relative;bottom:55px;" class="w3-tooltip w3-right">
-    <span class="w3-text w3-theme-light w3-padding">Go To Top</span>    
-    <a class="w3-text-white" href="#myHeader"><span class="w3-xlarge">
-    <i class="fa fa-chevron-circle-up"></i></span></a>
+  <div style="position:relative;bottom:10px;" class="w3-tooltip w3-right">
+    <span class="w3-text w3-theme-light w3-padding">위로가기</span>    
+    <a class="w3-text-white" href="#myHeader">
+		<span class="w3-xlarge"><i class="fa fa-chevron-circle-up"></i></span>
+	</a>
   </div>
-  <p>Remember to check out our  <a href="w3css_references.asp" class="w3-btn w3-theme-light" target="_blank">W3.CSS Reference</a></p>
 </footer>
-
 <!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
 <script>
 
