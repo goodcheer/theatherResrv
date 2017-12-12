@@ -69,7 +69,7 @@ function myReserve(){
   var resv_info = localStorage.getItem("resv_info");
 	resv_info = JSON.parse(resv_info);
   for (var i = 0; i< resvSeat.length;  i++){
-    var newResv = {"id":myid, "name":userName, "seat":resvSeat[i], "movie":movieTitle};
+    var newResv = {"id":myid, "name":name, "seat":resvSeat[i], "movie":movieTitle};
     }
 
   localStorage.setItem ("resv_info",JSON.stringify(resv_info));
@@ -108,9 +108,9 @@ function myReserve(){
     mvt = document.createElement('h3');
     mvt.innerHTML= movieTitle;
 
-    var userName = sessionStorage.getItem("userName");
+    var name = sessionStorage.getItem("name");
     usn = document.createElement('h5');
-    usn.innerHTML = userName+'님의 예약진행';
+    usn.innerHTML = name+'님의 예약진행';
 
     var myid = sessionStorage.getItem("id");
 
@@ -147,7 +147,7 @@ function myReserve(){
     }
 
     //예매 시도 관리
-    var threadSeat = document.querySelector('#seat');
+    var threadSeat = document.querySelector('#thread-seat');
     threadSeat.addEventListener('click', function (e) {
         if(e.target.classList.contains('reserved')){
             alert('이미 예약된 좌석입니다.');
