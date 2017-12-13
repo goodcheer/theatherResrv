@@ -14,9 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Swiper -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/css/swiper.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
     <script src="utils/localStorageHelper.js"></script>
 
 
@@ -189,7 +190,7 @@
 			alert("일치하는 회원정보가 없습니다.")
 		}
 		var users = JSON.parse(users);
-		
+
         const user = users.find(function (user) {
             return user.id === id && user.pw === pass;
         });
@@ -206,7 +207,7 @@
 				sessionStorage.setItem("resvNum",users[i].resvNum);
 			}
 		}
-			
+
         }
 
     }
@@ -218,10 +219,10 @@
 <div class="swiper-container w3-theme" style="width:100%">
 	<h6 align=center>절찬리에 상영중</h6>
     <div class="swiper-wrapper">
-        <div class="swiper-slide" style="background-image:url(poster/p1.png)" onclick="alert('로그인이 필요합니다')"></div>
-        <div class="swiper-slide" style="background-image:url(poster/p2.png)" onclick="alert('로그인이 필요합니다')"></div>
-        <div class="swiper-slide" style="background-image:url(poster/p3.png)" onclick="alert('로그인이 필요합니다')"></div>
-        <div class="swiper-slide" style="background-image:url(poster/p4.png)" onclick="alert('로그인이 필요합니다')"></div>
+        <div class="swiper-slide" style="background-image:url(poster/p1.png)"></div>
+        <div class="swiper-slide" style="background-image:url(poster/p2.png)"></div>
+        <div class="swiper-slide" style="background-image:url(poster/p3.png)"></div>
+        <div class="swiper-slide" style="background-image:url(poster/p4.png)"></div>
     </div>
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
