@@ -118,10 +118,10 @@ if(resv_info === null ){
   resv_info = [];
 }else{
   resv_info = JSON.parse(resv_info);
-}
-for (var i = 0; i<resv_info.length; i++){
-  if(sessionStorage.getItem("movieTitle") == resv_info[i].movie)
-  threadInfo.reserveList.push(resv_info[i]);
+  for (var i = 0; i<resv_info.length; i++){
+    if(sessionStorage.getItem("movieTitle") == resv_info[i].movie)
+    threadInfo.reserveList.push(resv_info[i]);
+  }
 }
 
 console.log(threadInfo.reserveList);
