@@ -114,9 +114,10 @@ var threadInfo = {
 };
 var resv_info = localStorage.getItem("resv_info");
 console.log(resv_info);
-if(resv_info === null ){
+if(resv_info.length == 0 ){
   resv_info = [];
-}else{
+}
+else{
   resv_info = JSON.parse(resv_info);
   for (var i = 0; i<resv_info.length; i++){
     if(sessionStorage.getItem("movieTitle") == resv_info[i].movie)
