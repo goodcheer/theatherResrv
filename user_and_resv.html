@@ -184,7 +184,7 @@ function deleteReservation(){
 				console.log(resv_info[j]["movie"]);
 				if(resv_info[j]["movie"]==mName && resv_info[j]["seat"]==sName && resv_info[j]["name"]==uName){
 					resv_info.splice(j,1);
-					user_info[i].resvNum = parseInt(user_info[i].resvNum)-1 ; // 예약횟수 하나씩 차감
+					user_info[j].resvNum = parseInt(user_info[j].resvNum)-1 ; // 예약횟수 하나씩 차감
 				}
 				else{console.log("Nope");}
 
