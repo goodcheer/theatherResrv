@@ -420,6 +420,9 @@ function signUp(){
 			localStorage.setItem("user_info",JSON.stringify(user_info));
 			location.href = "main_client.html";
 			sessionStorage.setItem('id',myid);
+			sessionStorage.setItem('name',myname);
+			sessionStorage.setItem('phone',phone);
+			sessionStorage.setItem('resvNum',0);
 
 		}else{
 			alert("작성 양식에 맞춰서 작성했는지 다시 확인해주세요.")
