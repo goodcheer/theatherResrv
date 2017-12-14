@@ -150,10 +150,26 @@ function closeRightMenu() {
 
 /* 회원정보 삭제 */
 function deleteUserself(){
-	alert('기억해라.. 우리가 너를 쫓아낸 것이다.');
+	alert('빠지겠다니... 너의 티켓은 몰수되었다. 돌아가!');
 	var uID = sessionStorage.getItem("id");
 	var user_info = localStorage.getItem("user_info");
+	var resv_info = localStorage.getItem("resv_info");
+
 	user_info = JSON.parse(user_info);
+	resv_info = JSON.parse(resv_info);
+
+	for (var i = resv_info.length-1; i >= 0; i--){
+		console.log(resv_info)
+		console.log(i)
+		console.log(resv_info[i])
+		console.log(resv_info[i].id)
+		if(resv_info[i].id == uID){
+			resv_info.splice(i,1);
+		}
+	}
+	var new_info = JSON.stringify(resv_info);
+	localStorage.setItem('resv_info',new_info);
+
 	i = 0;
 	while(i<user_info.length){
 		if (uID == user_info[i]["id"]){
@@ -161,6 +177,8 @@ function deleteUserself(){
 			}
 		i = i+1;
 	}
+
+
 	var new_uinfo = JSON.stringify(user_info);
 	localStorage.setItem('user_info',new_uinfo);
 }
@@ -200,7 +218,6 @@ function deleteReservation(){
 						}
 					}
 				}
-				else{console.log("Nope");}
 			}//db순회완료
 		}//체크안될경우
 	}//for문 종료
@@ -267,9 +284,10 @@ printUserInfo();
 </script>
 
 
+
 <div class="w3-center">
   <br>
-  <a class="w3-button w3-theme" onclick= deleteUserself() ; href="main.html">탈퇴하기</a>
+  <a class="w3-button w3-theme" onclick= "deleteUserself()" href="main.html" >탈퇴하기</a>
   <br><br>
 </div>
 
@@ -326,7 +344,7 @@ printReservation();
 
 <div class="w3-center" >
   <br>
-  <a class="w3-button w3-theme" onclick = deleteReservation() //href="user_and_resv.html">예약취소</a>
+  <a class="w3-button w3-theme" onclick = deleteReservation() href="user_and_resv.html">예약취소</a>
   <br><br>
 </div>
 
