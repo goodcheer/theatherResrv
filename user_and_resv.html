@@ -148,7 +148,7 @@ function deleteUserself(){
 	i = 0;
 	while(i<user_info.length){
 		if (uID == user_info[i]["id"]){
-			delete user_info[i]
+			user_info.splice(i,1);
 			}
 		i = i+1;
 	}
@@ -167,7 +167,7 @@ function deleteReservation(){
 	i = 0;
 	while(i<resv_info.length){
 		if (thisID == resv_info[i]["id"]){
-			delete resv_info[i]
+			resv_info.splice(i,1);
 			}
 		i = i+1;
 	}
