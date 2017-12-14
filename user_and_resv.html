@@ -142,6 +142,7 @@ function closeRightMenu() {
 
 /* 회원정보 삭제 */
 function deleteUserself(){
+	alert('기억해라.. 우리가 너를 쫓아낸 것이다.');
 	var uID = sessionStorage.getItem("id");
 	var user_info = localStorage.getItem("user_info");
 	user_info = JSON.parse(user_info);
@@ -159,8 +160,13 @@ function deleteUserself(){
 /* 예약내역 삭제 */
 function deleteReservation(){
 	var resv_info = localStorage.getItem("resv_info");
-
 	resv_info = JSON.parse(resv_info);
+
+	var uID = sessionStorage.getItem("id"); //세션 :ID
+	var user_info = localStorage.getItem("user_info"); //로컬 :유저인포
+	user_info = JSON.parse(user_info); //로컬 :유저인포읽음
+
+
 	var mrow0 = document.getElementsByName("mrow0"); // 체크박스
 	var mrow1 = document.getElementsByName("mrow1"); // 영화제목
 	var mrow2 = document.getElementsByName("mrow2"); // 좌석정보
@@ -178,6 +184,7 @@ function deleteReservation(){
 				console.log(resv_info[j]["movie"]);
 				if(resv_info[j]["movie"]==mName && resv_info[j]["seat"]==sName && resv_info[j]["name"]==uName){
 					resv_info.splice(j,1);
+					user_info[i].resvNum = parseInt(user_info[i].resvNum.) -1 ; // 예약횟수 하나씩 차감
 				}
 				else{console.log("Nope");}
 
@@ -186,6 +193,11 @@ function deleteReservation(){
 	}//for문 종료
 	var new_info = JSON.stringify(resv_info);
 	localStorage.setItem('resv_info',new_info);
+
+	var new_uinfo = JSON.stringify(user_info);
+	localStorage.setItem('user_info',new_uinfo);
+	
+	alert('예약을 취소하였다.');
 }
 
 </script>
@@ -211,6 +223,7 @@ function deleteReservation(){
 <th>이 름</th>
 <th>I D</th>
 <th>Phone</th>
+<th>예약횟수</th>
 </tr>
 <tbody id="uinfo">
 </tbody>
@@ -230,7 +243,8 @@ function printUserInfo(){
 		if (uID == user_info[i]["id"]){
 			var ustr = '<tr><td>'+user_info[i]["name"]+'</td>'
 			+'<td>'+user_info[i]["id"]+'</td>'
-			+'<td>'+user_info[i]["phone"]+'</td>';
+			+'<td>'+user_info[i]["phone"]+'</td>'
+			+'<td>'+user_info[i]["resvNum"]+'</td>';
 			document.getElementById("uinfo").innerHTML = ustr;
 		}
 		i = i + 1;
@@ -244,7 +258,7 @@ printUserInfo();
 
 <div class="w3-center">
   <br>
-  <a class="w3-button w3-theme" onclick= alert("탈퇴하였습니다.") deleteUserself() ; href="main.html">탈퇴하기</a>
+  <a class="w3-button w3-theme" onclick= deleteUserself() ; href="main.html">탈퇴하기</a>
   <br><br>
 </div>
 
@@ -301,7 +315,7 @@ printReservation();
 
 <div class="w3-center" >
   <br>
-  <a class="w3-button w3-theme" onclick=deleteReservation() >예약취소</a>
+  <a class="w3-button w3-theme" onclick = deleteReservation() href="user_and_resv.html">예약취소</a>
   <br><br>
 </div>
 
