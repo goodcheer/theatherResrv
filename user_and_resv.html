@@ -130,7 +130,7 @@ span.psw {
 
 <script>
 function openRightMenu() {
-    var x = document.getElementById("rightMenu");
+  var x = document.getElementById("rightMenu");
 	x.style.width = "30%";
 	x.style.display = "block";
 }
@@ -184,7 +184,7 @@ function deleteReservation(){
 				console.log(resv_info[j]["movie"]);
 				if(resv_info[j]["movie"]==mName && resv_info[j]["seat"]==sName && resv_info[j]["name"]==uName){
 					resv_info.splice(j,1);
-					user_info[i].resvNum = parseInt(user_info[i].resvNum.) -1 ; // 예약횟수 하나씩 차감
+					user_info[i].resvNum = parseInt(user_info[i].resvNum)-1 ; // 예약횟수 하나씩 차감
 				}
 				else{console.log("Nope");}
 
@@ -249,8 +249,6 @@ function printUserInfo(){
 		}
 		i = i + 1;
 	}
-
-
 }
 printUserInfo();
 </script>
@@ -371,10 +369,7 @@ function myAccFunc(id) {
 // Slideshows
 var slideIndex = 1;
 
-function plusDivs(n) {
-slideIndex = slideIndex + n;
-showDivs(slideIndex);
-}
+
 
 function showDivs(n) {
   var x = document.getElementsByClassName("mySlides");
@@ -384,6 +379,10 @@ function showDivs(n) {
      x[i].style.display = "none";
   }
   x[slideIndex-1].style.display = "block";
+}
+function plusDivs(n) {
+slideIndex = slideIndex + n;
+showDivs(slideIndex);
 }
 
 showDivs(1);
@@ -396,14 +395,14 @@ function move() {
   function frame() {
     if (width == 100) {
       clearInterval(id);
-    } else {
+    }
+		else {
       width++;
       elem.style.width = width + '%';
       elem.innerHTML = width * 1  + '%';
     }
    }
  }
-
 </script>
 
 </body>
