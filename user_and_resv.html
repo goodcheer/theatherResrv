@@ -163,6 +163,10 @@ function deleteReservation(){
 	if (resv_info == null){return}
 	resv_info = JSON.parse(resv_info);
 
+	var uID = sessionStorage.getItem("id");
+	var user_info = localStorage.getItem("user_info");
+	user_info = JSON.parse(user_info);
+
 	var mtable = document.getElementsByName("minfo");
 	console.log(mtable)
 
@@ -170,11 +174,16 @@ function deleteReservation(){
 	while(i<resv_info.length){
 		if (thisID == resv_info[i]["id"]){
 			resv_info.splice(i,1);
+			user_info.resvNum = user_info.resvNum -1 ;
 			}
 		i = i+1;
 	}
 	var new_info = JSON.stringify(resv_info);
-	localStorage.setItem('resv_info',new_info);}
+	localStorage.setItem('resv_info',new_info);
+
+	var new_uinfo = JSON.stringify(user_info);
+	localStorage.setItem('user_info',new_uinfo);
+	}
 
 </script>
 <!-- Header -->
@@ -230,9 +239,9 @@ printUserInfo();
 </script>
 
 
-<div class="w3-center" onclick=alert("탈퇴하였습니다.")>
+<div class="w3-center">
   <br>
-  <a class="w3-button w3-theme" onclick=deleteUserself() href="main.html">탈퇴하기</a>
+  <a class="w3-button w3-theme" onclick= alert("탈퇴하였습니다.") deleteUserself() ; href="main.html">탈퇴하기</a>
   <br><br>
 </div>
 
