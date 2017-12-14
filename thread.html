@@ -114,15 +114,23 @@ var threadInfo = {
 };
 var resv_info = localStorage.getItem("resv_info");
 console.log(resv_info);
-if(resv_info.length == 0 ){
+if(resv_info === null ){
   resv_info = [];
-}
-else{
+}else{
   resv_info = JSON.parse(resv_info);
-  for (var i = 0; i<resv_info.length; i++){
-    if(sessionStorage.getItem("movieTitle") == resv_info[i].movie)
-    threadInfo.reserveList.push(resv_info[i]);
+  console.log(resv_info);
+}
+console.log("================");
+for (var i = 0; i<resv_info.length; i++){
+  console.log(resv_info[i]);
+  if (resv_info[i].movie==null){
+    continue;
   }
+
+  if(sessionStorage.getItem("movieTitle") == resv_info[i].movie){
+      threadInfo.reserveList.push(resv_info[i]);
+  }
+
 }
 
 console.log(threadInfo.reserveList);
