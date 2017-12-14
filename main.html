@@ -242,14 +242,10 @@ var seatNum = [];
 	$( document ).ready(function(){
 	  var movie = localStorage.getItem("movie");
 	  movie = JSON.parse(movie);
-<<<<<<< HEAD
 	  console.log(movie.length);
 	  
 	  var i = 0;
-=======
 
-
->>>>>>> fe901bc490886997d80f0dfe133701cd09e4a5df
 	  var str = "";
 	  while(i<movie.length){
 	  getSeatNum(movie[i].movie_name);
