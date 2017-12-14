@@ -159,11 +159,13 @@ function deleteUserself(){
 /* 예약내역 삭제 */
 function deleteReservation(){
 	var thisID = sessionStorage.getItem("id");
-	console.log(thisID);
 	var resv_info = localStorage.getItem("resv_info");
 	if (resv_info == null){return}
 	resv_info = JSON.parse(resv_info);
-	console.log(resv_info)
+
+	var mtable = document.getElementsByName("minfo");
+	console.log(mtable)
+
 	i = 0;
 	while(i<resv_info.length){
 		if (thisID == resv_info[i]["id"]){
@@ -172,7 +174,6 @@ function deleteReservation(){
 		i = i+1;
 	}
 	var new_info = JSON.stringify(resv_info);
-	console.log(new_info)
 	localStorage.setItem('resv_info',new_info);}
 
 </script>
@@ -245,11 +246,12 @@ printUserInfo();
 
 
 <tr>
+<th>선  택</th>
 <th>영화명</th>
-<th>상영 일시</th>
-<th>상영 시간(분)</th>
+<th>좌  석</th>
+<th>예약자</th>
 </tr>
-<tbody id="minfo">
+<tbody id="minfo" name="minfo">
 </tbody>
 </table>
 </div>
@@ -258,33 +260,27 @@ printUserInfo();
 <script>
 <!-- 예약 내용 확인하고 내용을 출력하겠다 -->
 function printReservation(){
-		var flag = false;
+
 		var resv_info = localStorage.getItem("resv_info");
-		if (resv_info == null){	/*resv_info가 null이면 그냥 null 채워주기*/		
-				var str = '<tr><td>null</td>'
-				+'<td>null</td>'
-				+'<td>null</td>';
-			document.getElementById("minfo").innerHTML = str;}
+		
+		var minfo = document.getElementById("minfo");
+
+	
 		resv_info = JSON.parse(resv_info);
+
 		var thisID = sessionStorage.getItem("id");
 
 		for (i=0; i < resv_info.length; i++){
 			if (thisID == resv_info[i]["id"]){
-				var flag = true;
-				var str = '<tr><td>'+resv_info[i]["movie_name"]+'</td>'
-				+'<td>'+resv_info[i]["date"]+'</td>'
-				+'<td>'+resv_info[i]["run_time"]+'</td>';
-				document.getElementById("minfo").innerHTML = str;
+				var str = '<td><input name ="rowCheck" type = "checkbox"></td> <td>'+resv_info[i]["movie"]+'</td>'
+				+'<td>'+resv_info[i]["seat"]+'</td>'
+				+'<td>'+resv_info[i]["name"]+'</td>';
+				var resv1 = document.createElement('tr')
+			resv1.innerHTML = str;
+			minfo.appendChild(resv1);
 	  }
 			}
-		console.log(flag)
-		if (flag == false){
-			var str = '<tr><td>null</td>'
-				+'<td>null</td>'
-				+'<td>null</td>';
-			document.getElementById("minfo").innerHTML = str;
-		}
-	}
+}
 printReservation();
 </script>
 
