@@ -160,6 +160,17 @@ function openRightMenu() {
 function closeRightMenu() {
     document.getElementById("rightMenu").style.display = "none";
 }
+var seatNum = [];
+
+function getSeatNum(movieName){
+	var booked = localStorage.getItem("booked");
+	booked = JSON.parse(booked);
+	var vacant = 143;
+	for(i=0; i < booked.length; i++){
+		if(booked[i] == movieName) vacant--;
+	}
+	seatNum.push(vacant.toString());
+}
 </script>
 
 <!-- Touch Slider -->
@@ -180,9 +191,14 @@ function closeRightMenu() {
 	  movie = JSON.parse(movie);
 	  
 
+	  var i = 0;
 	  var str = "";
-	  for(i=0; i < movie.length; i++){
-	  	str = str + '<div class = "swiper-slide" style="background-image:url(poster/' + movie[i].poster + ')"></div>';
+	  while(i<movie.length){
+	  getSeatNum(movie[i].movie_name);
+	  
+	  str = str + '<div class = "swiper-slide"> 잔여 좌석: '+ seatNum[i] + '석 \
+		<img src= "poster/' + movie[i].poster + '" width="100%"></div>';
+	   i++;
 	  }
       $('#swiper-wrapper').html(str);
       <!-- Initialize Swiper -->

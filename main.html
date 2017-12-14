@@ -131,7 +131,9 @@
         }
 
     </style>
-
+<script>
+var seatNum = [];
+</script>
 </head>
 
 <body>
@@ -211,6 +213,16 @@
         }
 
     }
+	
+	function getSeatNum(movieName){
+		var booked = localStorage.getItem("booked");
+		booked = JSON.parse(booked);
+		var vacant = 143;
+		for(i=0; i < booked.length; i++){
+			if(booked[i] == movieName) vacant--;
+		}
+		seatNum.push(vacant.toString());
+	}
 </script>
 
 <!-- Touch Slider -->
@@ -230,11 +242,16 @@
 	$( document ).ready(function(){
 	  var movie = localStorage.getItem("movie");
 	  movie = JSON.parse(movie);
+	  console.log(movie.length);
 	  
-
+	  var i = 0;
 	  var str = "";
-	  for(i=0; i < movie.length; i++){
-	  	str = str + '<div class = "swiper-slide" style="background-image:url(poster/' + movie[i].poster + ')"></div>';
+	  while(i<movie.length){
+	  getSeatNum(movie[i].movie_name);
+	  
+	  str = str + '<div class = "swiper-slide"> 잔여 좌석: '+ seatNum[i] + '석 \
+		<img src= "poster/' + movie[i].poster + '" width="100%"></div>';
+	   i++;
 	  }
       $('#swiper-wrapper').html(str);
       <!-- Initialize Swiper -->

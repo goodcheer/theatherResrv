@@ -106,7 +106,26 @@ span.psw {
     }
 }
 </style>
+<script>
 
+var resv_info = localStorage.getItem("resv_info");
+
+if(resv_info === null){
+	
+}else{
+	resv_info = JSON.parse(resv_info);
+
+	var booked = [];
+
+	for(i=0; i<resv_info.length; i++){
+		booked.push(resv_info[i].movie);
+	}
+
+	localStorage.setItem("booked", JSON.stringify(booked));	
+	
+}
+
+</script>
 </head>
 
 

@@ -148,6 +148,18 @@ function logout(){
 	sessionStorage.clear();
 	location.href = "main.html";
 }
+
+var seatNum = [];
+
+function getSeatNum(movieName){
+	var booked = localStorage.getItem("booked");
+	booked = JSON.parse(booked);
+	var vacant = 143;
+	for(i=0; i < booked.length; i++){
+		if(booked[i] == movieName) vacant--;
+	}
+	seatNum.push(vacant.toString());
+}
 </script>
 
 <!-- Header -->
@@ -194,9 +206,12 @@ function movieLink(movieTitle) {
 	  movie = JSON.parse(movie);
 
 	  var str = "";
-	  for(i=0; i < movie.length; i++){
-	  	str = str + '<div class = "swiper-slide"><a onclick="movieLink(&#39;' + movie[i].movie_name + '&#39;)"\
+	  var i = 0;
+	  while(i < movie.length){
+		getSeatNum(movie[i].movie_name);
+	  	str = str + '<div class = "swiper-slide"> 잔여 좌석: '+ seatNum[i] + '석 <a onclick="movieLink(&#39;' + movie[i].movie_name + '&#39;)"\
 		href= "thread.html"> <img src= "poster/' + movie[i].poster + '" width="100%"></a></div>';
+		i++;
 	  }
       $('#swiper-wrapper').html(str);
       <!-- Initialize Swiper -->
