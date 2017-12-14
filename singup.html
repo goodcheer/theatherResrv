@@ -414,7 +414,7 @@ function signUp(){
 
 	<!-- 중복 확인 후 저장 -->
 	if(isDuplicated() == false){
-		var newdat = {"id":myid, "name":myname, "pw": password, "phone":phone};
+		var newdat = {"id":myid, "name":myname, "pw": password, "phone":phone, "resvNum":0};
 		user_info.push(newdat);
 		localStorage.setItem("user_info",JSON.stringify(user_info));
 		location.href = "main_client.html";
