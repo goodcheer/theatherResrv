@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 
 <html>
 
@@ -20,7 +19,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.jquery.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 
 
 <style>
@@ -174,33 +173,41 @@ function movieLink(movieTitle) {
   <!-- Swiper -->
   <div class="swiper-container w3-theme" style="width:100%">
   	<h6 align=center>절찬리에 상영중</h6>
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" ><a onclick="movieLink('007:두 번 산다')" href="thread.html"><img src="poster/p1.png" width="100%" ></a></div>
-      <div class="swiper-slide" ><a onclick="movieLink('과부의 눈물')" href="thread.html"><img src="poster/p2.png" width="100%" ></a></div>
-      <div class="swiper-slide" ><a onclick="movieLink('논개')" href="thread.html"><img src="poster/p3.png" width="100%" ></a></div>
-      <div class="swiper-slide" ><a onclick="movieLink('로마의 휴일')" href="thread.html"><img src="poster/p4.png" width="100%" ></a></div>
-    </div>
+    <div class="swiper-wrapper" id = "swiper-wrapper">
+     </div>
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
   </div>
 
   <!-- Initialize Swiper -->
   <script>
-    var swiper = new Swiper('.swiper-container', {
-      effect: 'coverflow',
-      grabCursor: true,
-      centeredSlides: true,
-      slidesPerView: 'auto',
-      coverflowEffect: {
-        rotate: 50,
-        stretch: 0,
-        depth: 100,
-        modifier: 1,
-        slideShadows : true,
-      },
-      pagination: {
-        el: '.swiper-pagination',
-      },
+    $( document ).ready(function(){
+	  var movie = localStorage.getItem("movie");
+	  movie = JSON.parse(movie);
+
+	  var str = "";
+	  for(i=0; i < movie.length; i++){
+	  	str = str + '<div class = "swiper-slide"><a onclick="movieLink(&#39;' + movie[i].movie_name + '&#39;)"\
+		href= "thread.html"> <img src= "poster/' + movie[i].poster + '" width="100%"></a></div>';
+	  }
+      $('#swiper-wrapper').html(str);
+      <!-- Initialize Swiper -->
+		var swiper = new Swiper('.swiper-container', {
+			effect: 'coverflow',
+			grabCursor: true,
+			centeredSlides: true,
+			slidesPerView: 'auto',
+			coverflowEffect: {
+				rotate: 50,
+				stretch: 0,
+				depth: 100,
+				modifier: 1,
+				slideShadows: true,
+			},
+			pagination: {
+				el: '.swiper-pagination',
+			},
+		});
     });
   </script>
 

@@ -19,7 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
     <script src="utils/localStorageHelper.js"></script>
-
+	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 
     <style>
         @font-face {
@@ -218,34 +218,45 @@
 <!-- Swiper -->
 <div class="swiper-container w3-theme" style="width:100%">
 	<h6 align=center>절찬리에 상영중</h6>
-    <div class="swiper-wrapper" onclick = "alert('로그인이 필요하다.')">
-        <div class="swiper-slide" style="background-image:url(poster/p1.png)"></div>
-        <div class="swiper-slide" style="background-image:url(poster/p2.png)"></div>
-        <div class="swiper-slide" style="background-image:url(poster/p3.png)"></div>
-        <div class="swiper-slide" style="background-image:url(poster/p4.png)"></div>
+    <div class="swiper-wrapper" id="swiper-wrapper" onclick = "alert('로그인이 필요하다.')">
     </div>
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
 </div>
 
-<!-- Initialize Swiper -->
+
 <script>
-    var swiper = new Swiper('.swiper-container', {
-        effect: 'coverflow',
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        coverflowEffect: {
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-        },
+<!-- 영화 목록생성 -->
+	$( document ).ready(function(){
+	  var movie = localStorage.getItem("movie");
+	  movie = JSON.parse(movie);
+	  
+
+	  var str = "";
+	  for(i=0; i < movie.length; i++){
+	  	str = str + '<div class = "swiper-slide" style="background-image:url(poster/' + movie[i].poster + ')"></div>';
+	  }
+      $('#swiper-wrapper').html(str);
+      <!-- Initialize Swiper -->
+		var swiper = new Swiper('.swiper-container', {
+			effect: 'coverflow',
+			grabCursor: true,
+			centeredSlides: true,
+			slidesPerView: 'auto',
+			coverflowEffect: {
+				rotate: 50,
+				stretch: 0,
+				depth: 100,
+				modifier: 1,
+				slideShadows: true,
+			},
+			pagination: {
+				el: '.swiper-pagination',
+			},
+		});
     });
+	
+
 </script>
 
 </body>
