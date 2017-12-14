@@ -128,7 +128,6 @@ span.psw {
 
 </div>
 
-</div>
 <script>
 function openRightMenu() {
     var x = document.getElementById("rightMenu");
@@ -154,7 +153,8 @@ function deleteUserself(){
 		i = i+1;
 	}
 	var new_uinfo = JSON.stringify(user_info);
-	localStorage.setItem('user_info',new_uinfo);}
+	localStorage.setItem('user_info',new_uinfo);
+}
 
 
 /* 예약내역 삭제 */
@@ -340,7 +340,8 @@ printReservation();
 
 <!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
 <script>
-
+var mybtn = document.getElementsByClassName("testbtn")[0];
+mybtn.click();
 
 // Tabs
 function openCity(evt, cityName) {
