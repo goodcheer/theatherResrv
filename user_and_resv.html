@@ -193,10 +193,14 @@ function deleteReservation(){
 				console.log(resv_info[j]["movie"]);
 				if(resv_info[j]["movie"]==mName && resv_info[j]["seat"]==sName && resv_info[j]["name"]==uName){
 					resv_info.splice(j,1);
-					user_info[j].resvNum = parseInt(user_info[j].resvNum)-1 ; // 예약횟수 하나씩 차감
+					for (var k = 0; k < user_info.length; k++){
+						if(user_info[k]["id"]==uID){
+							user_info[k].resvNum = user_info[k].resvNum -1;// 예약횟수 하나씩 차감
+							break;
+						}
+					}
 				}
 				else{console.log("Nope");}
-
 			}//db순회완료
 		}//체크안될경우
 	}//for문 종료
@@ -322,7 +326,7 @@ printReservation();
 
 <div class="w3-center" >
   <br>
-  <a class="w3-button w3-theme" onclick = deleteReservation() href="user_and_resv.html">예약취소</a>
+  <a class="w3-button w3-theme" onclick = deleteReservation() >예약취소</a>
   <br><br>
 </div>
 
