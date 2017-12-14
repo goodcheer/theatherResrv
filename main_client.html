@@ -138,9 +138,17 @@ span.psw {
 	</div>
 	
    </form>
+       <p style="text-align:center; margin-top: 6em;">
+        <a class="w3-button w3-red" id="sign-in-request" onclick="logout()">로그아웃</a>
+    </p>
 
 </div>
-	
+<script>
+function logout(){
+	sessionStorage.clear();
+	location.href = "main.html";
+}
+</script>
 
 <!-- Header -->
 <header class="w3-container w3-theme w3-padding" id="myHeader">

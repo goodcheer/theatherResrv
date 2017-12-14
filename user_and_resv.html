@@ -126,9 +126,18 @@ span.psw {
 
    </form>
 
+<p style="text-align:center; margin-top: 6em;">
+        <a class="w3-button w3-red" id="sign-in-request" onclick="logout()">로그아웃</a>
+    </p>
 </div>
 
 <script>
+
+function logout(){
+	sessionStorage.clear();
+	location.href = "main.html";
+}
+
 function openRightMenu() {
   var x = document.getElementById("rightMenu");
 	x.style.width = "30%";
