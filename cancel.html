@@ -56,47 +56,60 @@
     </tbody>
 </table>
     <div >
-      <h5>선택 좌석 정보: </h5>
+      <h5>기존 예약 좌석 정보: </h5>
       <h5 id = "trySeat"></h5>
     </div>
-  <button onclick = "myReserve()"> 예약하기 </button>
+  <button onclick = "myReserve()" > 예약취소완료 </button>
 </body>
 
 <script>
-//예약하기 버튼 누를 때 수행
+//예약취소 버튼 누를 때 수행
 function myReserve(){
-  /*var resv_info = localStorage.getItem("resv_info");
-	resv_info = JSON.parse(resv_info); 이미 선언해두어 할 필요 없음*/
-
-  //resv_info에 새롭게 예약된 좌석들을 추가한다.
+var cancelCnt = 0;
   for (var i = 0; i< tryingSeat.length;  i++){
+    for(var j = 0; j < threadInfo.myReserveList.length; j++){
+      if(tryingSeat[i]!=threadInfo.myReserveList[j].seat){
+        for(var k = 0; k < resv_info.length; k++){
+          if(threadInfo.myReserveList[j].seat == resv_info[k].seat){
+              resv_info.splice(k,1);
+              cancelCnt += 1;
+              break;
+            }
+        }
+      }
+
     var newResv = {"id":myid, "name":name, "seat":tryingSeat[i], "movie":movieTitle};
     resv_info.push(newResv);
     }
-  localStorage.setItem ("resv_info",JSON.stringify(resv_info));
-//예약횟수 증가
+  }
+    localStorage.setItem ("resv_info",JSON.stringify(resv_info));
+
   var id = sessionStorage.getItem("id");
-  console.log(id);
   var user_info = localStorage.getItem("user_info");
   user_info = JSON.parse(user_info);
   console.log(user_info);
   for (var i = 0; i < user_info.length; i++){
     //세션을 통해 입력된 ID와 DB에 저장된 ID가 같은 경우 예약횟수를 증가시킨다.
     if (user_info[i].id == id){
-          user_info[i].resvNum = parseInt(user_info[i].resvNum)+tryingSeat.length;
-          console.log(user_info[i].resvNum);
-    }
+          user_info[i].resvNum = parseInt(user_info[i].resvNum)-cancelCnt;
+      }
   }
-  console.log(user_info);
   localStorage.setItem ("user_info",JSON.stringify(user_info));
-
   //예약확인 페이지로 연결
-  window.location='user_and_resv.html';
+  window.location='thread.html';
 }
 
 function isReserved(rowcol){
   for (var i = 0; i < threadInfo.reserveList.length; i++){
     if (threadInfo.reserveList[i].seat == rowcol )
+    return true;
+  }
+  return false;
+}
+function isMine(rowcol2){
+  for (var i = 0; i < threadInfo.myReserveList.length; i++){
+    console.log(threadInfo.myReserveList[i].seat)
+    if (threadInfo.myReserveList[i].seat == rowcol2 )
     return true;
   }
   return false;
@@ -110,7 +123,8 @@ var threadInfo = {
     threadName : '좌석',
     row: 13,
     column: 12,
-    reserveList: []
+    reserveList: [],
+    myReserveList: []
 };
 var resv_info = localStorage.getItem("resv_info");
 console.log(resv_info);
@@ -120,20 +134,22 @@ if(resv_info === null ){
   resv_info = JSON.parse(resv_info);
   console.log(resv_info);
 }
-console.log("================");
+
 for (var i = 0; i<resv_info.length; i++){
-  console.log(resv_info[i]);
   if (resv_info[i].movie==null){
     continue;
   }
-
   if(sessionStorage.getItem("movieTitle") == resv_info[i].movie){
+    if (sessionStorage.getItem("id")== resv_info[i].id){
+      threadInfo.myReserveList.push(resv_info[i]);
+      console.log(threadInfo.myReserveList);
+    }
+    else{
       threadInfo.reserveList.push(resv_info[i]);
+      console.log(threadInfo.reserveList);
+    }
   }
-
 }
-
-console.log(threadInfo.reserveList);
 
 //현재 영화에 대한 정보와 회원정보를 출력
 var movieTitle = sessionStorage.getItem("movieTitle");
@@ -159,7 +175,7 @@ mt.innerHTML = mtstr;
 
 var name = sessionStorage.getItem("name");
 usn = document.createElement('h5');
-usn.innerHTML = name+' 님의 예약진행';
+usn.innerHTML = name+'님의 예약취소';
 
 var myid = sessionStorage.getItem("id");
 
@@ -168,6 +184,9 @@ document.querySelector('#movieTitle').appendChild(usn);
 document.querySelector('#movieTitle').appendChild(mt);
 
 // 좌석 생성
+var trySeat = document.querySelector('#trySeat');
+trySeat.innerHTML = " ";
+tryingSeat = [];
 for (let i = 0; i < threadInfo.row; i++) {
     let threadRow = document.createElement('tr');
     for (let j = 0; j < threadInfo.column; j++) {
@@ -184,7 +203,18 @@ for (let i = 0; i < threadInfo.row; i++) {
           seat.dataset.row = row;
           seat.dataset.column = j;
           seat.innerHTML = row + j;
-          if(isReserved(row+j)) seat.classList.add('reserved');
+
+          if(isReserved(row+j)){
+            seat.classList.add('reserved');
+          }
+
+          console.log(isMine(row+j))
+          if (isMine(row+j)){
+            seat.classList.add('my-reserve');
+            tryingSeat.push(row+j);
+            console.log(tryingSeat);
+
+          }
         }
         threadRow.appendChild(seat);
     }
@@ -192,9 +222,21 @@ for (let i = 0; i < threadInfo.row; i++) {
 }
 
 //예매 시도 관리
-
+var trySeat = document.querySelector('#trySeat');
 var threadSeat = document.querySelector('#thread-seat');
-tryingSeat = [];
+
+trySeat.innerHTML = " ";
+  for (var i = 0; i<tryingSeat.length; i++){
+    if (i==0){
+      console.log(tryingSeat[i])
+      trySeat.innerHTML += String (tryingSeat[i]);
+    }
+    else{
+      console.log(tryingSeat[i])
+      trySeat.innerHTML += String (", "+tryingSeat[i]);
+    }
+  }
+
 
 threadSeat.addEventListener('click', function (e) {
     if(e.target.classList.contains('reserved')){
@@ -208,7 +250,6 @@ threadSeat.addEventListener('click', function (e) {
             tryingSeat.splice(i,1);
           }
         }
-          console.log(tryingSeat);
 
     } else {
         e.target.classList.add('my-reserve');
@@ -217,7 +258,7 @@ threadSeat.addEventListener('click', function (e) {
     }
 
     //클릭해놓은 좌석 번호 아래 표시
-var trySeat = document.querySelector('#trySeat');
+
 trySeat.innerHTML = " ";
   for (var i = 0; i<tryingSeat.length; i++){
     if (i==0){
@@ -228,10 +269,7 @@ trySeat.innerHTML = " ";
       console.log(tryingSeat[i])
       trySeat.innerHTML += String (", "+tryingSeat[i]);
     }
-
   }
-
-
 });
 
 var submit = document.querySelector('#summit');
