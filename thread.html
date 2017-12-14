@@ -138,11 +138,28 @@ console.log(threadInfo.reserveList);
 //현재 영화에 대한 정보와 회원정보를 출력
 var movieTitle = sessionStorage.getItem("movieTitle");
 mvt = document.createElement('h3');
-mvt.innerHTML= movieTitle;
+mvt.innerHTML= '영화 제목 [ '+ movieTitle +' ]';
+
+//local에서 상영 무비 가져오기
+var localmovie = localStorage.getItem("movie"); 
+if(localmovie === null){localmovie = [];}
+else{localmovie = JSON.parse(localmovie);}
+
+//local의 movie에서 date 가져와서 movieTitle에 저장. 내 마음 속에 저장
+for (var i=0; i<localmovie.length; i++){  
+  if (movieTitle == localmovie[i].movie_name){
+    var movieTime = localmovie[i].date;
+  }
+}
+
+var mtstr = '상영 일시 [ ' + movieTime + ' ]';
+mt = document.createElement('h3');
+mt.innerHTML = mtstr;
+
 
 var name = sessionStorage.getItem("name");
 usn = document.createElement('h5');
-usn.innerHTML = name+'님의 예약진행';
+usn.innerHTML = name+' 님의 예약진행';
 
 var myid = sessionStorage.getItem("id");
 
