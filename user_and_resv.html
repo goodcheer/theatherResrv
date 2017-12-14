@@ -123,7 +123,7 @@ span.psw {
 	<a class="w3-button" style="width:100%; padding: 30px 30px; border-radius:15px" href="user_and_resv.html"> 내 정보 </a>
 	<a class="w3-button" style="width:100%; padding: 30px 30px; border-radius:15px" href="main_client.html"> 메인 화면으로 </a>
 	</div>
-	
+
    </form>
 
 </div>
@@ -158,32 +158,35 @@ function deleteUserself(){
 
 /* 예약내역 삭제 */
 function deleteReservation(){
-	var thisID = sessionStorage.getItem("id");
 	var resv_info = localStorage.getItem("resv_info");
-	if (resv_info == null){return}
+
 	resv_info = JSON.parse(resv_info);
+	var mrow0 = document.getElementsByName("mrow0"); // 체크박스
+	var mrow1 = document.getElementsByName("mrow1"); // 영화제목
+	var mrow2 = document.getElementsByName("mrow2"); // 좌석정보
+	var mrow3 = document.getElementsByName("mrow3"); // 예약자
 
-	var uID = sessionStorage.getItem("id");
-	var user_info = localStorage.getItem("user_info");
-	user_info = JSON.parse(user_info);
+	for (var i = 0; i < mrow1.length ; i++){
+		if (mrow0[i].checked){  //체크박스 체크돼있으면 영화제목, 좌석, 예약자를 값에 저장
+			var mName = mrow1[i].childNodes[0].nodeValue;
+			var sName = mrow2[i].childNodes[0].nodeValue;
+			var uName = mrow3[i].childNodes[0].nodeValue;
+			console.log(mName)
+			console.log(sName)
+			console.log(uName)
+			for (var j = 0; j < resv_info.length; j++ ){//db를 돌면서 세개를 모두 만족하는 데이터를 삭제한다.
+				console.log(resv_info[j]["movie"]);
+				if(resv_info[j]["movie"]==mName && resv_info[j]["seat"]==sName && resv_info[j]["name"]==uName){
+					resv_info.splice(j,1);
+				}
+				else{console.log("Nope");}
 
-	var mtable = document.getElementsByName("minfo");
-	console.log(mtable)
-
-	i = 0;
-	while(i<resv_info.length){
-		if (thisID == resv_info[i]["id"]){
-			resv_info.splice(i,1);
-			user_info.resvNum = user_info.resvNum -1 ;
-			}
-		i = i+1;
-	}
+			}//db순회완료
+		}//체크안될경우
+	}//for문 종료
 	var new_info = JSON.stringify(resv_info);
 	localStorage.setItem('resv_info',new_info);
-
-	var new_uinfo = JSON.stringify(user_info);
-	localStorage.setItem('user_info',new_uinfo);
-	}
+}
 
 </script>
 <!-- Header -->
@@ -271,31 +274,34 @@ printUserInfo();
 function printReservation(){
 
 		var resv_info = localStorage.getItem("resv_info");
-		
+
 		var minfo = document.getElementById("minfo");
 
-	
+
 		resv_info = JSON.parse(resv_info);
 
 		var thisID = sessionStorage.getItem("id");
 
 		for (i=0; i < resv_info.length; i++){
 			if (thisID == resv_info[i]["id"]){
-				var str = '<td><input name ="rowCheck" type = "checkbox"></td> <td>'+resv_info[i]["movie"]+'</td>'
-				+'<td>'+resv_info[i]["seat"]+'</td>'
-				+'<td>'+resv_info[i]["name"]+'</td>';
+				var str = '<td><input name ="mrow0" type = "checkbox"></td> <td name ="mrow1">'+resv_info[i]["movie"]+'</td>'
+				+'<td name ="mrow2">'+resv_info[i]["seat"]+'</td>'
+				+'<td name ="mrow3">'+resv_info[i]["name"]+'</td>';
 				var resv1 = document.createElement('tr')
 			resv1.innerHTML = str;
 			minfo.appendChild(resv1);
-	  }
-			}
+	  	}
+
+//href="user_and_resv.html"
+		}
 }
+
 printReservation();
 </script>
 
-<div class="w3-center" onclick=alert("취소되었습니다.")>
+<div class="w3-center" >
   <br>
-  <a class="w3-button w3-theme" onclick=deleteReservation() href="user_and_resv.html">예약취소</a>
+  <a class="w3-button w3-theme" onclick=deleteReservation() >예약취소</a>
   <br><br>
 </div>
 
@@ -311,7 +317,7 @@ printReservation();
 <!-- Footer -->
 <footer class="w3-container w3-theme-dark w3-padding-16">
   <div style="position:relative;bottom:10px;" class="w3-tooltip w3-right">
-    <span class="w3-text w3-theme-light w3-padding">위로가기</span>    
+    <span class="w3-text w3-theme-light w3-padding">위로가기</span> 
     <a class="w3-text-white" href="#myHeader">
 		<span class="w3-xlarge"><i class="fa fa-chevron-circle-up"></i></span>
 	</a>
@@ -337,54 +343,16 @@ function openCity(evt, cityName) {
   evt.currentTarget.className += " w3-dark-grey";
 }
 
-var mybtn = document.getElementsByClassName("testbtn")[0];
-mybtn.click();
-
 // Accordions
 function myAccFunc(id) {
     var x = document.getElementById(id);
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
-    } else { 
+    } else {
         x.className = x.className.replace(" w3-show", "");
     }
 }
 
-// Slideshows
-var slideIndex = 1;
-
-function plusDivs(n) {
-slideIndex = slideIndex + n;
-showDivs(slideIndex);
-}
-
-function showDivs(n) {
-  var x = document.getElementsByClassName("mySlides");
-  if (n > x.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = x.length} ;
-  for (i = 0; i < x.length; i++) {
-     x[i].style.display = "none";  
-  }
-  x[slideIndex-1].style.display = "block";  
-}
-
-showDivs(1);
-
-// Progress Bars
-function move() {
-  var elem = document.getElementById("myBar");   
-  var width = 5;
-  var id = setInterval(frame, 10);
-  function frame() {
-    if (width == 100) {
-      clearInterval(id);
-    } else {
-      width++; 
-      elem.style.width = width + '%'; 
-      elem.innerHTML = width * 1  + '%';
-    }
-  }
-}
 </script>
 
 </body>
