@@ -9,114 +9,20 @@
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<link rel="stylesheet" type="text/css" href="mystyle.css">
 
 <style>
 
-@font-face{
-	font-family:"Rose";
-	src:url("fonts/ajangmidabang.woff");
-}
-h1,h3{
-	font-family: Rose ;
-
-}
-
-body{
-	font-family: Rose;
-}
-
-.swiper-container {
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-	z-index: 0;
-}
-.swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 370px;
-  height: 500px;
-}
-
-.burst-12 { background: red; width: 80px; height: 80px; position: relative; text-align: center; }
-
-<!-- Login Form -->
-form {
-    border: 3px solid #f1f1f1;
-	width: 60% !important;
-	margin: auto !important;
-	opacity: 1 !important;
-}
-
-input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-button {
-    background-color: red;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-}
-
-button:hover {
-    opacity: 0.8;
-}
-
-.cancelbtn {
-    width: auto;
-	margin: auto;
-    padding: 8px 10px;
-    background-color: #f44336;
-}
-
-.imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-}
-
-img.avatar {
-    width: 40%;
-    border-radius: 50%;
-}
-
-.container {
-    padding: 16px;
-}
-
-span.psw {
-    float: right;
-    padding-top: 16px;
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-    span.psw {
-       display: block;
-       float: none;
-    }
-    .cancelbtn {
-       width: 100%;
-    }
-}
 </style>
 <script>
 
-	
+
 <!-- 영화 삭제 -->
 
 function delClient(targetID){
 	var users = localStorage.getItem("user_info");
 	users = JSON.parse(users);
-	
+
 	for(i=0; i<users.length; i++){
 		if(users[i].id === targetID){
 			users.splice(i,1);
@@ -124,9 +30,9 @@ function delClient(targetID){
 			}
 	}
 	localStorage.setItem('user_info',JSON.stringify(users));
-		
+
 }
-	
+
 
 </script>
 </head>
@@ -146,7 +52,7 @@ function delClient(targetID){
 	<a class="w3-button" style="width:48%; padding: 30px 30px; border-radius:15px" href="client_manager.html"> 회원 관리 </a>
 	<a class="w3-button" style="width:100%; padding: 30px 30px; border-radius:15px" href="main_admin.html"> 메인 화면으로 </a>
 	</div>
-	
+
    </form>
 
 </div>
@@ -204,7 +110,7 @@ function closeRightMenu() {
 	$( document ).ready(function(){
 	  var users = localStorage.getItem("user_info");
 	  users = JSON.parse(users);
-	  
+
 
 	  var str = "";
 	  for(i=0; i < users.length; i++){
@@ -216,9 +122,9 @@ function closeRightMenu() {
 </tr>';
 	  }
       $('#screen').html(str);
-      
+
     });
-	
+
 </script>
 <br>
 
@@ -231,7 +137,7 @@ function closeRightMenu() {
     <div class="w3-container">
       <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 		<div class="w3-section">
-			<label>회원ID</label>      
+			<label>회원ID</label>
 			<input class="w3-input" id="del_client_id" type="text" required>
 			<br><br><br>
 			<input type="submit" value="삭제하기" onclick="delClient(document.getElementById('del_client_id').value)">
@@ -244,7 +150,7 @@ function closeRightMenu() {
 <!-- Footer -->
 <footer class="w3-container w3-theme-dark w3-padding-16">
   <div style="position:relative;bottom:10px;" class="w3-tooltip w3-right">
-    <span class="w3-text w3-theme-light w3-padding">위로가기</span>    
+    <span class="w3-text w3-theme-light w3-padding">위로가기</span> 
     <a class="w3-text-white" href="#myHeader">
 		<span class="w3-xlarge"><i class="fa fa-chevron-circle-up"></i></span>
 	</a>
@@ -277,7 +183,7 @@ function myAccFunc(id) {
     var x = document.getElementById(id);
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
-    } else { 
+    } else {
         x.className = x.className.replace(" w3-show", "");
     }
 }
@@ -292,27 +198,27 @@ showDivs(slideIndex);
 
 function showDivs(n) {
   var x = document.getElementsByClassName("mySlides");
-  if (n > x.length) {slideIndex = 1}    
+  if (n > x.length) {slideIndex = 1}
   if (n < 1) {slideIndex = x.length} ;
   for (i = 0; i < x.length; i++) {
-     x[i].style.display = "none";  
+     x[i].style.display = "none";
   }
-  x[slideIndex-1].style.display = "block";  
+  x[slideIndex-1].style.display = "block";
 }
 
 showDivs(1);
 
 // Progress Bars
 function move() {
-  var elem = document.getElementById("myBar");   
+  var elem = document.getElementById("myBar");
   var width = 5;
   var id = setInterval(frame, 10);
   function frame() {
     if (width == 100) {
       clearInterval(id);
     } else {
-      width++; 
-      elem.style.width = width + '%'; 
+      width++;
+      elem.style.width = width + '%';
       elem.innerHTML = width * 1  + '%';
     }
   }

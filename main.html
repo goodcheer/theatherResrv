@@ -20,116 +20,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
     <script src="utils/localStorageHelper.js"></script>
 	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
     <style>
-        @font-face {
-            font-family: "Rose";
-            src: url("fonts/ajangmidabang.woff");
-        }
-
-        h1,h2,h3,h4,h5,h6 {
-            font-family: Rose;
-
-        }
-
-        body {
-            font-family: Rose;
-        }
-
-        .swiper-container {
-            width: 100%;
-            padding-top: 50px;
-            padding-bottom: 50px;
-            z-index: 0;
-        }
-
-        .swiper-slide {
-            background-position: center;
-            background-size: cover;
-            width: 370px;
-            height: 500px;
-        }
-
-        .burst-12 {
-            background: red;
-            width: 80px;
-            height: 80px;
-            position: relative;
-            text-align: center;
-        }
-
-        <!--
-        Login Form
-
-        -->
-        form {
-            border: 3px solid #f1f1f1;
-            width: 60% !important;
-            margin: auto !important;
-            opacity: 1 !important;
-        }
-
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: red;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        button:hover {
-            opacity: 0.8;
-        }
-
-        .cancelbtn {
-            width: auto;
-            margin: auto;
-            padding: 8px 10px;
-            background-color: #f44336;
-        }
-
-        .imgcontainer {
-            text-align: center;
-            margin: 24px 0 12px 0;
-        }
-
-        img.avatar {
-            width: 40%;
-            border-radius: 50%;
-        }
-
-        .container {
-            padding: 16px;
-        }
-
-        span.psw {
-            float: right;
-            padding-top: 16px;
-        }
-
-        /* Change styles for span and cancel button on extra small screens */
-        @media screen and (max-width: 300px) {
-            span.psw {
-                display: block;
-                float: none;
-            }
-
-            .cancelbtn {
-                width: 100%;
-            }
-        }
-
     </style>
 <script>
 var seatNum = [];
@@ -213,7 +105,7 @@ var seatNum = [];
         }
 
     }
-	
+
 	function getSeatNum(movieName){
 		var booked = localStorage.getItem("booked");
 		booked = JSON.parse(booked);
@@ -243,13 +135,13 @@ var seatNum = [];
 	  var movie = localStorage.getItem("movie");
 	  movie = JSON.parse(movie);
 	  console.log(movie.length);
-	  
+
 	  var i = 0;
 
 	  var str = "";
 	  while(i<movie.length){
 	  getSeatNum(movie[i].movie_name);
-	  
+
 	  str = str + '<div class = "swiper-slide"> 잔여 좌석: '+ seatNum[i] + '석 \
 		<img src= "poster/' + movie[i].poster + '" width="100%"></div>';
 	   i++;
