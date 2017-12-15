@@ -120,34 +120,6 @@ function deleteReservation(){
 	var user_info = localStorage.getItem("user_info"); //로컬 :유저인포
 	user_info = JSON.parse(user_info); //로컬 :유저인포읽음
 
-
-	var mrow0 = document.getElementsByName("mrow0"); // 체크박스
-	var mrow1 = document.getElementsByName("mrow1"); // 영화제목
-	var mrow2 = document.getElementsByName("mrow2"); // 좌석정보
-	var mrow3 = document.getElementsByName("mrow3"); // 예약자
-
-	for (var i = 0; i < mrow1.length ; i++){
-		if (mrow0[i].checked){  //체크박스 체크돼있으면 영화제목, 좌석, 예약자를 값에 저장
-			var mName = mrow1[i].childNodes[0].nodeValue;
-			var sName = mrow2[i].childNodes[0].nodeValue;
-			var uName = mrow3[i].childNodes[0].nodeValue;
-			console.log(mName)
-			console.log(sName)
-			console.log(uName)
-			for (var j = 0; j < resv_info.length; j++ ){//db를 돌면서 세개를 모두 만족하는 데이터를 삭제한다.
-				console.log(resv_info[j]["movie"]);
-				if(resv_info[j]["movie"]==mName && resv_info[j]["seat"]==sName && resv_info[j]["name"]==uName){
-					resv_info.splice(j,1);
-					for (var k = 0; k < user_info.length; k++){
-						if(user_info[k]["id"]==uID){
-							user_info[k].resvNum = user_info[k].resvNum -1;// 예약횟수 하나씩 차감
-							break;
-						}
-					}
-				}
-			}//db순회완료
-		}//체크안될경우
-	}//for문 종료
 	var new_info = JSON.stringify(resv_info);
 	localStorage.setItem('resv_info',new_info);
 
@@ -228,7 +200,6 @@ printUserInfo();
 
 
 <tr>
-<th>선  택</th>
 <th>영화명</th>
 <th>좌  석</th>
 <th>예약자</th>
@@ -254,7 +225,7 @@ function printReservation(){
 
 		for (i=0; i < resv_info.length; i++){
 			if (thisID == resv_info[i]["id"]){
-				var str = '<td><input name ="mrow0" type = "checkbox"></td> <td name ="mrow1">'+resv_info[i]["movie"]+'</td>'
+				var str = '<td name ="mrow1">'+resv_info[i]["movie"]+'</td>'
 				+'<td name ="mrow2">'+resv_info[i]["seat"]+'</td>'
 				+'<td name ="mrow3">'+resv_info[i]["name"]+'</td>';
 				var resv1 = document.createElement('tr')
