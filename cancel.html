@@ -29,7 +29,7 @@
         }
 
         .reserved {
-            background: red;
+            background: Darkgrey;
 
         }
 
@@ -43,9 +43,10 @@
 
 </head>
 <body>
-<div id = "movieTitle">
+<div class="w3-center" id = "movieTitle">
 </div>
-<table id="thread-table">
+<div class="w3-center">
+<table id="thread-table" align="center">
     <thead>
     <tr>
         <th id="screen">screen</th>
@@ -55,7 +56,8 @@
 
     </tbody>
 </table>
-    <div >
+</div>
+    <div class="w3-center">
       <h5>기존 예약 좌석 정보: </h5>
       <h5 id = "trySeat"></h5>
     </div>
@@ -77,9 +79,6 @@ var cancelCnt = 0;
             }
         }
       }
-
-    var newResv = {"id":myid, "name":name, "seat":tryingSeat[i], "movie":movieTitle};
-    resv_info.push(newResv);
     }
   }
     localStorage.setItem ("resv_info",JSON.stringify(resv_info));
@@ -95,8 +94,8 @@ var cancelCnt = 0;
       }
   }
   localStorage.setItem ("user_info",JSON.stringify(user_info));
-  //예약확인 페이지로 연결
-  window.location='thread.html';
+  //예약취소 페이지로 연결
+  window.location='cancelResult.html';
 }
 
 function isReserved(rowcol){
@@ -206,6 +205,7 @@ for (let i = 0; i < threadInfo.row; i++) {
 
           if(isReserved(row+j)){
             seat.classList.add('reserved');
+            seat.innerHTML = "X";
           }
 
           console.log(isMine(row+j))
@@ -236,7 +236,6 @@ trySeat.innerHTML = " ";
       trySeat.innerHTML += String (", "+tryingSeat[i]);
     }
   }
-
 
 threadSeat.addEventListener('click', function (e) {
     if(e.target.classList.contains('reserved')){

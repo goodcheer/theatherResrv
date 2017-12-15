@@ -2,7 +2,7 @@
 <html>
 <head>
 
-<title>내 정보</title>
+<title>예매 취소</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -48,7 +48,7 @@ if(resv_info === null){
 	<div style="padding: 5px;">
 	<a class="w3-button" style="width:100%; padding: 30px 30px; border-radius:15px" href="user_and_resv.html"> 내 정보 </a>
 	<a class="w3-button" style="width:100%; padding: 30px 30px; border-radius:15px" href="main_client.html"> 메인 화면으로 </a>
-	<a class="w3-button" style="width:100%; padding: 30px 30px; border-radius:15px" href="cancel_list.html"> 예약취소 </a>
+	<a class="w3-button" style="width:100%; padding: 30px 30px; border-radius:15px" href="cancel.html"> 예약취소 </a>
 	</div>
 
    </form>
@@ -74,195 +74,87 @@ function closeRightMenu() {
     document.getElementById("rightMenu").style.display = "none";
 }
 
-
-/* 회원정보 삭제 */
-function deleteUserself(){
-	alert('빠지겠다니... 너의 티켓은 몰수되었다. 돌아가!');
-	var uID = sessionStorage.getItem("id");
-	var user_info = localStorage.getItem("user_info");
-	var resv_info = localStorage.getItem("resv_info");
-
-	user_info = JSON.parse(user_info);
-	resv_info = JSON.parse(resv_info);
-
-	for (var i = resv_info.length-1; i >= 0; i--){
-		console.log(resv_info)
-		console.log(i)
-		console.log(resv_info[i])
-		console.log(resv_info[i].id)
-		if(resv_info[i].id == uID){
-			resv_info.splice(i,1);
-		}
-	}
-	var new_info = JSON.stringify(resv_info);
-	localStorage.setItem('resv_info',new_info);
-
-	i = 0;
-	while(i<user_info.length){
-		if (uID == user_info[i]["id"]){
-			user_info.splice(i,1);
-			}
-		i = i+1;
-	}
-
-
-	var new_uinfo = JSON.stringify(user_info);
-	localStorage.setItem('user_info',new_uinfo);
-}
-
-
-/* 예약내역 삭제 */
-function deleteReservation(){
-	var resv_info = localStorage.getItem("resv_info");
-	resv_info = JSON.parse(resv_info);
-
-	var uID = sessionStorage.getItem("id"); //세션 :ID
-	var user_info = localStorage.getItem("user_info"); //로컬 :유저인포
-	user_info = JSON.parse(user_info); //로컬 :유저인포읽음
-
-
-	var mrow0 = document.getElementsByName("mrow0"); // 체크박스
-	var mrow1 = document.getElementsByName("mrow1"); // 영화제목
-	var mrow2 = document.getElementsByName("mrow2"); // 좌석정보
-	var mrow3 = document.getElementsByName("mrow3"); // 예약자
-
-	for (var i = 0; i < mrow1.length ; i++){
-		if (mrow0[i].checked){  //체크박스 체크돼있으면 영화제목, 좌석, 예약자를 값에 저장
-			var mName = mrow1[i].childNodes[0].nodeValue;
-			var sName = mrow2[i].childNodes[0].nodeValue;
-			var uName = mrow3[i].childNodes[0].nodeValue;
-			console.log(mName)
-			console.log(sName)
-			console.log(uName)
-			for (var j = 0; j < resv_info.length; j++ ){//db를 돌면서 세개를 모두 만족하는 데이터를 삭제한다.
-				console.log(resv_info[j]["movie"]);
-				if(resv_info[j]["movie"]==mName && resv_info[j]["seat"]==sName && resv_info[j]["name"]==uName){
-					resv_info.splice(j,1);
-					for (var k = 0; k < user_info.length; k++){
-						if(user_info[k]["id"]==uID){
-							user_info[k].resvNum = user_info[k].resvNum -1;// 예약횟수 하나씩 차감
-							break;
-						}
-					}
-				}
-			}//db순회완료
-		}//체크안될경우
-	}//for문 종료
-	var new_info = JSON.stringify(resv_info);
-	localStorage.setItem('resv_info',new_info);
-
-	var new_uinfo = JSON.stringify(user_info);
-	localStorage.setItem('user_info',new_uinfo);
-
-	alert('예약을 취소하였다.');
-}
-
 </script>
 <!-- Header -->
 <header class="w3-container w3-theme w3-padding" id="myHeader">
   <i onclick="openRightMenu()" class="fa fa-bars w3-xlarge w3-button w3-theme w3-right"></i>
   <div class="w3-center">
-  <h1 class="w3-xxxlarge w3-animate-bottom">가상세계 매표소</h1>
+  <h2 class="w3-xxxlarge w3-animate-bottom">예매 취소 가능 리스트</h2>
   </div>
 </header>
 
 
 <div class="w3-container">
   <hr>
-  <div class="w3-center">
-    <h2>회원 정보</h2>
+    <div class="w3-center">
+      <h6>취소하고 싶은 영화를 골라라.</h6>
+    </div>
+  <div class="w3-responsive w3-card-4">
+    <table class="w3-table w3-striped w3-bordered">
+      <tr>
+        <th>영화 제목</th>
+        <th>상영 시간</th>
+      </tr>
+      <tbody id="cancelInfo">
+      </tbody>
+    </table>
   </div>
-<div class="w3-responsive w3-card-4">
-<table class="w3-table w3-striped w3-bordered">
-
-
-<tr>
-<th>이 름</th>
-<th>I D</th>
-<th>Phone</th>
-<th>예약횟수</th>
-</tr>
-<tbody id="uinfo">
-</tbody>
-</table>
 </div>
-</div>
+
 
 <script>
-<!-- 회원정보 확인하고 내용을 출력하겠다 -->
-function printUserInfo(){
-	var user_info = localStorage.getItem("user_info");
-	user_info = JSON.parse(user_info);
-	var uID = sessionStorage.getItem("id");
 
-	var i = 0;
-	while (i<user_info.length){
-		if (uID == user_info[i]["id"]){
-			var ustr = '<tr><td>'+user_info[i]["name"]+'</td>'
-			+'<td>'+user_info[i]["id"]+'</td>'
-			+'<td>'+user_info[i]["phone"]+'</td>'
-			+'<td>'+user_info[i]["resvNum"]+'</td>';
-			document.getElementById("uinfo").innerHTML = ustr;
-		}
-		i = i + 1;
-	}
+//취소내역 영화목록 어레이
+cancelList = [];
+
+<!-- 영화 중복 확인 -->
+function isDuplicated(movi){
+  for (var i = 0; i<cancelList.length; i++){
+    if (cancelList[i]==movi){
+      return true;
+    }
+  }
+  return false;
 }
-printUserInfo();
-</script>
 
 
 
-<div class="w3-center">
-  <br>
-  <a class="w3-button w3-theme" onclick= "deleteUserself()" href="main.html" >탈퇴하기</a>
-  <br><br>
-</div>
-
-<div class="w3-container">
-  <hr>
-  <div class="w3-center">
-    <h2>예약 정보</h2>
-  </div>
-<div class="w3-responsive w3-card-4">
-<table class="w3-table w3-striped w3-bordered">
-
-
-<tr>
-<th>선  택</th>
-<th>영화명</th>
-<th>좌  석</th>
-<th>예약자</th>
-</tr>
-<tbody id="minfo" name="minfo">
-</tbody>
-</table>
-</div>
-</div>
-
-<script>
 <!-- 예약 내용 확인하고 내용을 출력하겠다 -->
 function printReservation(){
-
+    //Local에서 예매정보 가져오기
 		var resv_info = localStorage.getItem("resv_info");
-
-		var minfo = document.getElementById("minfo");
-
-
 		resv_info = JSON.parse(resv_info);
 
+    //Session 의 id가져오기
 		var thisID = sessionStorage.getItem("id");
 
-		for (i=0; i < resv_info.length; i++){
-			if (thisID == resv_info[i]["id"]){
-				var str = '<td><input name ="mrow0" type = "checkbox"></td> <td name ="mrow1">'+resv_info[i]["movie"]+'</td>'
-				+'<td name ="mrow2">'+resv_info[i]["seat"]+'</td>'
-				+'<td name ="mrow3">'+resv_info[i]["name"]+'</td>';
-				var resv1 = document.createElement('tr')
-			resv1.innerHTML = str;
-			minfo.appendChild(resv1);
+    //local에서 상영 무비 가져오기
+    var localmovie = localStorage.getItem("movie");
+    if(localmovie === null){localmovie = [];}
+    else{localmovie = JSON.parse(localmovie);}
+
+    //cancelInfo라는 테이블의 위치 값을 갖고 있다.
+    var cancelInfo = document.getElementById("cancelInfo");
+
+		for (var i=0; i < resv_info.length; i++){
+			if (thisID == resv_info[i]["id"]){   //아이디와 예매내역의 아이디가 같은 경우
+        var movieTitle = resv_info[i]["movie"]
+        for (var j=0; j<localmovie.length; j++){   //localmovie를 돌면서 영화시간을 찾아온다.
+          if (movieTitle == localmovie[j].movie_name && isDuplicated(movieTitle)!=true){
+            cancelList.push(movieTitle);
+            var movieTime = localmovie[j].date;
+            var str = '<td name ="mrow0">'+resv_info[i]["movie"]+'</td>'
+    				+'<td name ="mrow1">'+movieTime;
+    				var resv1 = document.createElement('tr');
+    			resv1.innerHTML = str;
+          resv1.addEventListener('click', function (e) {
+              sessionStorage.setItem("movieTitle",movieTitle);
+              window.location='cancel.html';
+            });
+    			cancelInfo.appendChild(resv1);
+          }
+        }
 	  	}
-
-
 		}
 }
 
@@ -271,7 +163,7 @@ printReservation();
 
 <div class="w3-center" >
   <br>
-
+  <a class="w3-button w3-theme" onclick = deleteReservation() href="cancel_list">예약취소</a>
   <br><br>
 </div>
 
@@ -299,6 +191,8 @@ printReservation();
 var mybtn = document.getElementsByClassName("testbtn")[0];
 mybtn.click();
 
+
+
 // Tabs
 function openCity(evt, cityName) {
   var i;
@@ -313,6 +207,7 @@ function openCity(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " w3-dark-grey";
 }
+
 
 // Accordions
 function myAccFunc(id) {
